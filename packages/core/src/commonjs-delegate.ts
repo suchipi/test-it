@@ -58,31 +58,20 @@ export function makeDelegate(config: NormalizedConfig, win: any) {
         return;
       }
 
-      try {
-        const wrapper = win.eval(
-          "(function (exports, require, module, __filename, __dirname) { " +
-            code +
-            "\n})"
-        );
+      const wrapper = win.eval(
+        "(function (exports, require, module, __filename, __dirname) { " +
+          code +
+          "\n})\n" +
+          `//# sourceURL=${filepath}\n`
+      );
 
-        wrapper(
-          moduleEnv.exports,
-          moduleEnv.require,
-          moduleEnv.module,
-          moduleEnv.__filename,
-          moduleEnv.__dirname
-        );
-      } catch (err) {
-        const newError = {
-          name: err.name,
-          message: err.message,
-          stack: `at eval (${filepath})`,
-        };
-
-        debug(`Wrapped error: ${JSON.stringify(newError)}`);
-
-        throw newError;
-      }
+      wrapper(
+        moduleEnv.exports,
+        moduleEnv.require,
+        moduleEnv.module,
+        moduleEnv.__filename,
+        moduleEnv.__dirname
+      );
     },
   };
 

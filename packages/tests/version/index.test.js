@@ -6,7 +6,7 @@ test("version", async () => {
 
   expect(result.stdout).toMatchInlineSnapshot(`
     "@zayith/cli: 0.2.0
-    @zayith/core: 0.2.0
+    @zayith/core: 0.2.2
     "
   `);
   expect(result.stderr).toBe("");
