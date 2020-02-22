@@ -4,8 +4,12 @@ const { spawn } = require("first-base");
 const zayith = (...args) =>
   spawn("../../node_modules/.bin/zayith", ["--seed", "1234", ...args]);
 
-test("node", async () => {
-  const run = zayith(path.join(__dirname, "*.zayith.js"));
+test("extensions", async () => {
+  const run = zayith(
+    "--resolve-extensions",
+    "js,txt",
+    path.join(__dirname, "*.zayith.js")
+  );
   await run.completion;
   expect(run.result.error).toBe(false);
 
@@ -19,13 +23,10 @@ test("node", async () => {
   expect(lines.join("\n")).toMatchInlineSnapshot(`
     "Jasmine started
 
-      node/index.zayith.js
+      extensions/index.zayith.js
+        [32m✓ loads the file[39m
 
-        node
-          [32m✓ can \`require\` using a relative path[39m
-          [32m✓ can \`require\` builtins[39m
-
-    Executed 2 of 2 specs[32m SUCCESS[39m in X sec.
+    Executed 1 of 1 spec[32m SUCCESS[39m in X sec.
     Randomized with seed 1234.
     "
   `);

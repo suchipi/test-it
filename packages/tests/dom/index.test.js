@@ -2,7 +2,7 @@ const path = require("path");
 const { spawn } = require("first-base");
 
 const zayith = (...args) =>
-  spawn("node", ["../../packages/cli/dist/cli.js", "--seed", "1234", ...args]);
+  spawn("../../node_modules/.bin/zayith", ["--seed", "1234", ...args]);
 
 test("dom", async () => {
   const run = zayith(path.join(__dirname, "*.zayith.js"));

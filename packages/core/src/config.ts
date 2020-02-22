@@ -37,7 +37,7 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
     resolveExtensions:
       config.resolveExtensions && config.resolveExtensions.length > 0
         ? config.resolveExtensions
-        : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx"],
+        : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx", ".node"],
     seed: config.seed,
   };
 }

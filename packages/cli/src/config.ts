@@ -72,7 +72,7 @@ export const usage = [
   `    required without needing the extension in the string passed`,
   `    into require.`,
   ``,
-  `    The default value is "js,json,mjs,jsx,ts,tsx".`,
+  `    The default value is "js,json,mjs,jsx,ts,tsx,node".`,
   ``,
   `    Example: zayith --resolve-extensions js,jsx,json,mjs,png`,
   ``,
