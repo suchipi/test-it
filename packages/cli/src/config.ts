@@ -16,6 +16,7 @@ type CliConfig = {
   seed?: number;
   help?: boolean;
   version?: boolean;
+  resolveExtensions?: Array<string>;
 };
 
 export const usage = [
@@ -50,7 +51,7 @@ export const usage = [
   ``,
   `    Loader modules tell Zayith how to load your test files.`,
   ``,
-  `    The default loader module uses fs.readFile to load your test`,
+  `    The default loader module uses fs.readFileSync to load your test`,
   `    file. However, you can write loaders that retrieve test files`,
   `    however makes sense for your project; for example, you could`,
   `    write a loader that retrieves your files via http.`,
@@ -59,11 +60,21 @@ export const usage = [
   `    Babel, TypeScript, or Webpack.`,
   ``,
   `    A loader module should export a function that receives a`,
-  `    string (the file to load), and returns a Promise that`,
-  `    resolves to a string (the code to execute in the browser).`,
+  `    string (the file to load), and returns a string (the code to`,
+  `	   execute in the browser).`,
   ``,
   `    Example: zayith --loader some-loader-from-npm`,
   `    Example: zayith --loader ./my-loader.js`,
+  ``,
+  `  --resolve-extensions: Specify which extensions should be implicitly resolved by require.`,
+  ``,
+  `    This option configures which filetype extensions can be`,
+  `    required without needing the extension in the string passed`,
+  `    into require.`,
+  ``,
+  `    The default value is "js,json,mjs,jsx,ts,tsx".`,
+  ``,
+  `    Example: zayith --resolve-extensions js,jsx,json,mjs,png`,
   ``,
   `  --seed: Specify a seed for Zayith's random test ordering.`,
   ``,
@@ -91,7 +102,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   debug(`Parsing argv with yargs: ${util.inspect(argv)}`);
 
   const opts = yargsParser(argv, {
-    string: ["loader"],
+    string: ["loader", "resolveExtensions"],
     array: ["reporters"],
     number: ["seed"],
     boolean: ["halp, varsion"],
@@ -112,6 +123,11 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     seed: opts.seed,
     help: opts.halp,
     version: opts.varsion,
+    resolveExtensions: opts.resolveExtensions
+      ? opts.resolveExtensions
+          .split(",")
+          .map((ext: string) => (ext.startsWith(".") ? ext : "." + ext))
+      : undefined,
   };
 }
 
@@ -144,6 +160,10 @@ export function convertCliConfig(cliConfig: CliConfig): Config {
 
   if (cliConfig.seed != null) {
     outputConfig.seed = cliConfig.seed;
+  }
+
+  if (cliConfig.resolveExtensions) {
+    outputConfig.resolveExtensions = cliConfig.resolveExtensions;
   }
 
   return outputConfig;

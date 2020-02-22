@@ -19,8 +19,10 @@ test("dom", async () => {
   expect(lines.join("\n")).toMatchInlineSnapshot(`
     "Jasmine started
 
-      dom
-        [32m✓ can access a real DOM (Chromium)[39m
+      dom/index.zayith.js
+
+        dom
+          [32m✓ can access a real DOM (Chromium)[39m
 
     Executed 1 of 1 spec[32m SUCCESS[39m in X sec.
     Randomized with seed 1234.

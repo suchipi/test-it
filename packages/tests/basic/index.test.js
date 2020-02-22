@@ -19,19 +19,21 @@ test("basic", async () => {
   expect(lines.join("\n")).toMatchInlineSnapshot(`
     "Jasmine started
 
-      basic
-        [31m✗ failing test[39m
-          [31m- [39m[31mError: [2mexpect([22m[31mreceived[31m[2m).[22mtoBe[2m([22m[32mexpected[31m[2m) // Object.is equality[22m
+      basic/index.zayith.js
 
-          Expected: [32m5[31m
-          Received: [31m4[31m[39m
-        [32m✓ succeeding test[39m
+        basic
+          [31m✗ failing test[39m
+            [31m- [39m[31mError: [2mexpect([22m[31mreceived[31m[2m).[22mtoBe[2m([22m[32mexpected[31m[2m) // Object.is equality[22m
+
+            Expected: [32m5[31m
+            Received: [31m4[31m[39m
+          [32m✓ succeeding test[39m
 
     **************************************************
     *                    Failures                    *
     **************************************************
 
-    1) basic failing test
+    1) basic/index.zayith.js basic failing test
       [31m- [39m[31mError: [2mexpect([22m[31mreceived[31m[2m).[22mtoBe[2m([22m[32mexpected[31m[2m) // Object.is equality[22m
 
       Expected: [32m5[31m
@@ -41,7 +43,7 @@ test("basic", async () => {
     *                    Pending                     *
     **************************************************
 
-    1) basic pending test
+    1) basic/index.zayith.js basic pending test
       [33mTemporarily disabled with xit[39m
 
     Executed 2 of 3 specs[31m (1 FAILED)[39m[33m (1 PENDING)[39m in X sec.

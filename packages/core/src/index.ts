@@ -5,7 +5,8 @@ import expect from "expect";
 import Jasmine from "@suchipi/jasmine-mini";
 import { PartialConfig, normalizeConfig } from "./config";
 // @ts-ignore
-import makeModuleEnv from "make-module-env";
+import { requireMain } from "commonjs-standalone";
+import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
 
 const debug = makeDebug("@zayith/core:index.ts");
@@ -46,17 +47,17 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.document.innerHTML = "";
 
     win.nw = nw;
-    const env = makeModuleEnv(filename);
-    Object.assign(win, env);
+    win.process = process;
 
-    Object.assign(win, j.getInterface());
+    const testInterface = j.getInterface();
+    Object.assign(win, testInterface);
     win.expect = expect;
 
-    debug(`Loading '${filename}'`);
-    const code = await config.loader(filename);
+    const delegate = makeDelegate(config, win);
 
-    debug(`Running code for '${filename}'`);
-    win.eval(code);
+    testInterface.describe(path.relative(process.cwd(), filename), () => {
+      requireMain(filename, delegate);
+    });
   }
 
   const results: any = await new Promise((resolve) => {

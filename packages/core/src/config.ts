@@ -8,14 +8,16 @@ const debug = makeDebug("@zayith/core:config.ts");
 export type PartialConfig = {
   testFiles: Array<string>;
   reporters?: Array<jasmine.CustomReporter>;
-  loader?: (filename: string) => Promise<string>;
+  loader?: (filename: string) => string;
+  resolveExtensions?: Array<string>;
   seed?: number;
 };
 
 export type NormalizedConfig = {
   testFiles: Array<string>;
   reporters: Array<jasmine.CustomReporter>;
-  loader: (filename: string) => Promise<string>;
+  loader: (filename: string) => string;
+  resolveExtensions: Array<string>;
   seed?: number;
 };
 
@@ -29,10 +31,13 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
         : [new SpecReporter()],
     loader:
       config.loader ||
-      (async (filename: string) => {
-        const code = await util.promisify(fs.readFile)(filename, "utf-8");
-        return code;
+      ((filename: string) => {
+        return fs.readFileSync(filename, "utf-8");
       }),
+    resolveExtensions:
+      config.resolveExtensions && config.resolveExtensions.length > 0
+        ? config.resolveExtensions
+        : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx"],
     seed: config.seed,
   };
 }
