@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/core",
+    "packages/cli"
+  ],
+  "scripts": {
+    "build": "cd packages/core && yarn build && cd ../cli && yarn build",
+    "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
+    "cli": "node packages/cli/dist/cli.js",
+    "cli:debug": "env DEBUG='@lotus/*' yarn cli"
+  }
+}
