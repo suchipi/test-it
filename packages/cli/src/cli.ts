@@ -28,7 +28,9 @@ const child = child_process.spawn(
     ...process.argv
       .slice(2)
       // Hack: node-nw swallows the `--help` arg, so we need to change it to something else.
-      .map((arg) => (arg === "--help" ? "--halp" : arg)),
+      .map((arg) => (arg === "--help" ? "--halp" : arg))
+      // Hack: node-nw swallows the `--version` arg, so we need to change it to something else.
+      .map((arg) => (arg === "--version" ? "--varsion" : arg)),
   ],
   {
     cwd: process.cwd(),

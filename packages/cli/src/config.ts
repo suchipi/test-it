@@ -15,6 +15,7 @@ type CliConfig = {
   loader?: string;
   seed?: number;
   help?: boolean;
+  version?: boolean;
 };
 
 export const usage = [
@@ -80,6 +81,10 @@ export const usage = [
   `  --help: Show this usage text.`,
   ``,
   `    Example: zayith --help`,
+  ``,
+  `  --version: Show the versions of @zayith/cli and @zayith/core.`,
+  ``,
+  `    Example: zayith --version`,
 ].join("\n");
 
 export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
@@ -89,7 +94,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     string: ["loader"],
     array: ["reporters"],
     number: ["seed"],
-    boolean: ["halp"],
+    boolean: ["halp, varsion"],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -106,6 +111,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     loader: opts.loader,
     seed: opts.seed,
     help: opts.halp,
+    version: opts.varsion,
   };
 }
 

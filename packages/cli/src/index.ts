@@ -13,6 +13,11 @@ async function main() {
 
     if (cliConfig.help) {
       console.error(usage);
+    } else if (cliConfig.version) {
+      console.log(`@zayith/cli: ${require("../package.json").version}`);
+      console.log(
+        `@zayith/core: ${require("@zayith/core/package.json").version}`
+      );
     } else {
       const config = convertCliConfig(cliConfig);
       debug(`Parsed Config: ${util.inspect(config)}`);
