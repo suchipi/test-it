@@ -47,6 +47,7 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.document.innerHTML = "";
 
     win.nw = nw;
+    win.global = win;
     win.process = process;
 
     const testInterface = j.getInterface();
