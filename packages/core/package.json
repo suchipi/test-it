@@ -11,6 +11,7 @@
     "debug": "^4.1.1",
     "expect": "^25.1.0",
     "jasmine-spec-reporter": "^4.2.1",
+    "make-module-env": "^1.0.1",
     "nwjs-types": "^1.0.0"
   },
   "devDependencies": {

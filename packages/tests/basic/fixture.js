@@ -1,13 +1,13 @@
-describe("thing", () => {
-  it("works", () => {
+describe("basic", () => {
+  it("succeeding test", () => {
     expect(2 + 2).toBe(4);
   });
 
-  it("doesn't work", () => {
+  it("failing test", () => {
     expect(2 + 2).toBe(5);
   });
 
-  xit("might work later", () => {
+  xit("pending test", () => {
     expect(2 + 2).toBe(7);
   });
 });
