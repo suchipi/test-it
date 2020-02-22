@@ -35,19 +35,14 @@ test("help", async () => {
 
       --loader: Specify which loader module to use.
 
-        Loader modules tell Zayith how to load your test files.
+        Loader modules tell Zayith how to load and compile your test files.
 
-        The default loader module uses fs.readFileSync to load your test
-        file. However, you can write loaders that retrieve test files
-        however makes sense for your project; for example, you could
-        write a loader that retrieves your files via http.
-
-        Loaders can also compile your test code, using eg.
-        Babel, TypeScript, or Webpack.
+        The default loader module supports ES2020, React, TypeScript, and Flow.
 
         A loader module should export a function that receives a
         string (the file to load), and returns a string (the code to
-    	   execute in the browser).
+    	   execute in the browser). Loader modules must be synchronous,
+    	   because they're called when 'require' is called.
 
         Example: zayith --loader some-loader-from-npm
         Example: zayith --loader ./my-loader.js
