@@ -14,6 +14,7 @@ export type PartialConfig = {
   resolveExtensions?: Array<string>;
   seed?: number;
   updateSnapshots?: boolean;
+  testSetupFiles?: Array<string>;
 };
 
 export type NormalizedConfig = {
@@ -23,6 +24,7 @@ export type NormalizedConfig = {
   resolveExtensions: Array<string>;
   seed?: number;
   updateSnapshots: boolean;
+  testSetupFiles: Array<string>;
 };
 
 export function normalizeConfig(config: PartialConfig): NormalizedConfig {
@@ -40,5 +42,6 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
         : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx", ".node"],
     seed: config.seed,
     updateSnapshots: Boolean(config.updateSnapshots),
+    testSetupFiles: config.testSetupFiles || [],
   };
 }

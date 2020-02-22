@@ -5,7 +5,7 @@ import expect from "expect";
 import Jasmine from "@suchipi/jasmine-mini";
 import { PartialConfig, normalizeConfig } from "./config";
 // @ts-ignore
-import { requireMain } from "commonjs-standalone";
+import { Module } from "commonjs-standalone";
 import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
 // @ts-ignore
@@ -76,9 +76,16 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.after = win.afterAll;
 
     const delegate = makeDelegate(config, win);
+    const requireCache = {};
 
     testInterface.describe(path.relative(process.cwd(), filename), () => {
-      requireMain(filename, delegate);
+      debug(`Running test setup files: ${util.inspect(config.testSetupFiles)}`);
+      config.testSetupFiles.forEach((testSetupFile) => {
+        Module._load(testSetupFile, delegate, requireCache);
+      });
+
+      debug(`Running test code: '${filename}'`);
+      Module._load(filename, delegate, requireCache);
     });
   }
 

@@ -18,6 +18,7 @@ type CliConfig = {
   version?: boolean;
   resolveExtensions?: Array<string>;
   updateSnapshots: boolean;
+  testSetupFiles?: Array<string>;
 };
 
 export const usage = [
@@ -31,6 +32,14 @@ export const usage = [
   `  zayith './tests/**/*.js' '!**/*.snapshot.js'`,
   ``,
   `Options:`,
+  `  --test-setup-files: A comma-separated list of files to run before each test file.`,
+  ``,
+  `    A comma-separated list of paths to modules that run some code to`,
+  `    configure or set up the testing environment.`,
+  ``,
+  `    Example: zayith --test-setup-files ./test-setup.js`,
+  `    Example: zayith --test-setup-files ./test-setup.js,./other-test-setup.js`,
+  ``,
   `  --reporters: Specify which test reporter module(s) to use.`,
   ``,
   `    Example: zayith --reporter some-reporter-from-npm`,
@@ -106,7 +115,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   debug(`Parsing argv with yargs: ${util.inspect(argv)}`);
 
   const opts = yargsParser(argv, {
-    string: ["loader", "resolveExtensions"],
+    string: ["loader", "resolveExtensions", "testSetupFiles"],
     array: ["reporters"],
     number: ["seed"],
     boolean: ["halp", "varsion", "updateSnapshots", "u"],
@@ -131,6 +140,15 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
       ? opts.resolveExtensions
           .split(",")
           .map((ext: string) => (ext.startsWith(".") ? ext : "." + ext))
+      : undefined,
+    testSetupFiles: opts.testSetupFiles
+      ? opts.testSetupFiles
+          .split(",")
+          .map((filepath: string) =>
+            filepath.startsWith(".")
+              ? path.resolve(process.cwd(), filepath)
+              : filepath
+          )
       : undefined,
     updateSnapshots: Boolean(opts.updateSnapshots || opts.u),
   };
@@ -172,6 +190,8 @@ export function convertCliConfig(cliConfig: CliConfig): Config {
   }
 
   outputConfig.updateSnapshots = cliConfig.updateSnapshots;
+
+  outputConfig.testSetupFiles = cliConfig.testSetupFiles;
 
   return outputConfig;
 }

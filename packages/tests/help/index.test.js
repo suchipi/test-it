@@ -16,6 +16,14 @@ test("help", async () => {
       zayith './tests/**/*.js' '!**/*.snapshot.js'
 
     Options:
+      --test-setup-files: A comma-separated list of files to run before each test file.
+
+        A comma-separated list of paths to modules that run some code to
+        configure or set up the testing environment.
+
+        Example: zayith --test-setup-files ./test-setup.js
+        Example: zayith --test-setup-files ./test-setup.js,./other-test-setup.js
+
       --reporters: Specify which test reporter module(s) to use.
 
         Example: zayith --reporter some-reporter-from-npm
