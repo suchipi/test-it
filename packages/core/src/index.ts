@@ -51,7 +51,15 @@ export async function runTests(inputConfig: Config): Promise<any> {
 
     const testInterface = j.getInterface();
     Object.assign(win, testInterface);
+
     win.expect = expect;
+    win.test = win.it;
+    win.it.only = win.fit;
+    win.test.only = win.fit;
+    win.describe.only = win.fdescribe;
+    win.it.skip = win.xit;
+    win.test.skip = win.xit;
+    win.describe.skip = win.xdescribe;
 
     const delegate = makeDelegate(config, win);
 
