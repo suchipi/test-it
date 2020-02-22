@@ -5,7 +5,7 @@ describe("node", () => {
   });
 
   it("can `require` using a relative path", () => {
-    const fixture2 = require("./fixture2");
-    expect(fixture2).toBe("hi");
+    const someFixture = require("./some-fixture");
+    expect(someFixture).toBe("hi");
   });
 });

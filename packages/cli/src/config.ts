@@ -14,15 +14,82 @@ type CliConfig = {
   reporters?: Array<string>;
   loader?: string;
   seed?: number;
+  help?: boolean;
 };
 
-function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
+export const usage = [
+  `Usage: zayith [options] [testFileGlobs...]`,
+  `Examples:`,
+  `  zayith`,
+  `  zayith --help`,
+  `  zayith './tests/**/*.js'`,
+  `  zayith --seed 1234`,
+  `  zayith --seed 1234 './tests/**/*.js'`,
+  `  zayith './tests/**/*.js' '!**/*.snapshot.js'`,
+  ``,
+  `Options:`,
+  `  --reporters: Specify which test reporter module(s) to use.`,
+  ``,
+  `    Example: zayith --reporter some-reporter-from-npm`,
+  `    Example: zayith --reporter ./my-reporter.js`,
+  `    Example: zayith --reporter ./my-reporter.js,another-reporter`,
+  ``,
+  `    Reporters define what to print during (and after) a test run.`,
+  `    When you run Zayith, and it prints a list of what failed, what`,
+  `    succeeded, what's pending, etc... that's being printed by your`,
+  `    reporter.`,
+  ``,
+  `    A test reporter module should export either a Jasmine reporter`,
+  `    class, or an instance of a Jasmine reporter class.`,
+  ``,
+  `    If you don't specify any reporter(s), jasmine-spec-reporter`,
+  `    will be used.`,
+  ``,
+  `  --loader: Specify which loader module to use.`,
+  ``,
+  `    Loader modules tell Zayith how to load your test files.`,
+  ``,
+  `    The default loader module uses fs.readFile to load your test`,
+  `    file. However, you can write loaders that retrieve test files`,
+  `    however makes sense for your project; for example, you could`,
+  `    write a loader that retrieves your files via http.`,
+  ``,
+  `    Loaders can also compile your test code, using eg.`,
+  `    Babel, TypeScript, or Webpack.`,
+  ``,
+  `    A loader module should export a function that receives a`,
+  `    string (the file to load), and returns a Promise that`,
+  `    resolves to a string (the code to execute in the browser).`,
+  ``,
+  `    Example: zayith --loader some-loader-from-npm`,
+  `    Example: zayith --loader ./my-loader.js`,
+  ``,
+  `  --seed: Specify a seed for Zayith's random test ordering.`,
+  ``,
+  `    Zayith runs tests in a random order by default, to help you`,
+  `    avoid situations where code from one test is leaking into`,
+  `    another.`,
+  ``,
+  `    However, if you need the order that your tests run in to be`,
+  `    deterministic, you can specify a seed value, and the tests`,
+  `    will run in the same order each time.`,
+  ``,
+  `    Example: zayith --seed 1234`,
+  `    Example: zayith --seed 7`,
+  ``,
+  `  --help: Show this usage text.`,
+  ``,
+  `    Example: zayith --help`,
+].join("\n");
+
+export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   debug(`Parsing argv with yargs: ${util.inspect(argv)}`);
 
   const opts = yargsParser(argv, {
     string: ["loader"],
     array: ["reporters"],
     number: ["seed"],
+    boolean: ["halp"],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -38,10 +105,11 @@ function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     ).filter(Boolean),
     loader: opts.loader,
     seed: opts.seed,
+    help: opts.halp,
   };
 }
 
-function convertCliConfig(cliConfig: CliConfig): Config {
+export function convertCliConfig(cliConfig: CliConfig): Config {
   const env = makeModuleEnv(path.join(process.cwd(), "zayith-context.js"));
 
   const outputConfig: Config = {
@@ -73,12 +141,4 @@ function convertCliConfig(cliConfig: CliConfig): Config {
   }
 
   return outputConfig;
-}
-
-export function parseArgv(argv: Array<string>): Config {
-  const cliConfig = parseArgvIntoCliConfig(argv);
-  debug(`Parsed CliConfig: ${util.inspect(cliConfig)}`);
-  const config = convertCliConfig(cliConfig);
-  debug(`Parsed Config: ${util.inspect(config)}`);
-  return config;
 }

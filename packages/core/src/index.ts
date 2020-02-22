@@ -27,38 +27,36 @@ export async function runTests(inputConfig: Config): Promise<any> {
 
   config.reporters.forEach((reporter) => j.addReporter(reporter));
 
-  const windows = [];
   for (let filename of config.testFiles) {
     if (!path.isAbsolute(filename)) {
       filename = path.join(process.cwd(), filename);
     }
 
-    debug(`Creating window for '${filename}'`);
+    debug(`Creating iframe for '${filename}'`);
 
-    const win: nw.Window = await new Promise((resolve) => {
-      nw.Window.open(
-        "about:blank",
-        { show: false, new_instance: true },
-        resolve
-      );
+    const win: any = await new Promise((resolve) => {
+      const frame = document.createElement("iframe");
+      frame.onload = () => {
+        resolve(frame.contentDocument?.defaultView);
+      };
+      frame.src = "about:blank";
+      document.body.appendChild(frame);
     });
 
-    win.window.document.innerHTML = "";
+    win.document.innerHTML = "";
 
-    win.window.nw = nw;
+    win.nw = nw;
     const env = makeModuleEnv(filename);
-    Object.assign(win.window, env);
+    Object.assign(win, env);
 
-    Object.assign(win.window, j.getInterface());
-    win.window.expect = expect;
+    Object.assign(win, j.getInterface());
+    win.expect = expect;
 
     debug(`Loading '${filename}'`);
     const code = await config.loader(filename);
 
     debug(`Running code for '${filename}'`);
-    win.eval(null, code);
-
-    windows.push(win);
+    win.eval(code);
   }
 
   const results: any = await new Promise((resolve) => {
@@ -66,9 +64,7 @@ export async function runTests(inputConfig: Config): Promise<any> {
     j.execute();
   });
 
-  debug(`Run completed; closing all windows`);
-
-  windows.forEach((win) => win.close(true));
+  debug(`Run completed`);
 
   return results;
 }

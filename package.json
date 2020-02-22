@@ -11,6 +11,8 @@
     "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
     "cli": "node packages/cli/dist/cli.js",
     "cli:debug": "env DEBUG='@zayith/*' yarn cli",
-    "test": "yarn build && cd packages/tests && yarn test"
+    "test": "cd packages/tests && yarn test",
+    "test:manual": "yarn cli 'packages/tests/**/*.zayith.js'",
+    "prepublish": "yarn build && yarn test"
   }
 }

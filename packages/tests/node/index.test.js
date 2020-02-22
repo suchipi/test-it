@@ -5,7 +5,7 @@ const zayith = (...args) =>
   spawn("node", ["../../packages/cli/dist/cli.js", "--seed", "1234", ...args]);
 
 test("node", async () => {
-  const run = zayith(path.join(__dirname, "fixture.js"));
+  const run = zayith(path.join(__dirname, "*.zayith.js"));
   await run.completion;
   expect(run.result.error).toBe(false);
 

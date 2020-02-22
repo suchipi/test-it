@@ -22,7 +22,14 @@ debug(`Using node-nw bin at '${nodeNwBin}'`);
 
 const child = child_process.spawn(
   "node",
-  [nodeNwBin, path.join(__dirname, "index.js"), ...process.argv.slice(2)],
+  [
+    nodeNwBin,
+    path.join(__dirname, "index.js"),
+    ...process.argv
+      .slice(2)
+      // Hack: node-nw swallows the `--help` arg, so we need to change it to something else.
+      .map((arg) => (arg === "--help" ? "--halp" : arg)),
+  ],
   {
     cwd: process.cwd(),
   }

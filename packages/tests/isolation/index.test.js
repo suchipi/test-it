@@ -4,7 +4,7 @@ const { spawn } = require("first-base");
 const zayith = (...args) =>
   spawn("node", ["../../packages/cli/dist/cli.js", "--seed", "1234", ...args]);
 
-test("dom", async () => {
+test("basic", async () => {
   const run = zayith(path.join(__dirname, "*.zayith.js"));
   await run.completion;
   expect(run.result.error).toBe(false);
@@ -19,10 +19,13 @@ test("dom", async () => {
   expect(lines.join("\n")).toMatchInlineSnapshot(`
     "Jasmine started
 
-      dom
-        [32m✓ can access a real DOM (Chromium)[39m
+      second
+        [32m✓ is isolated from other tests[39m
 
-    Executed 1 of 1 spec[32m SUCCESS[39m in X sec.
+      first
+        [32m✓ is isolated from other tests[39m
+
+    Executed 2 of 2 specs[32m SUCCESS[39m in X sec.
     Randomized with seed 1234.
     "
   `);
