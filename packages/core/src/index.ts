@@ -8,6 +8,8 @@ import { PartialConfig, normalizeConfig } from "./config";
 import { requireMain } from "commonjs-standalone";
 import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
+// @ts-ignore
+import regeneratorRuntime from "regenerator-runtime";
 
 const debug = makeDebug("@zayith/core:index.ts");
 
@@ -49,6 +51,7 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.nw = nw;
     win.global = win;
     win.process = process;
+    win.regeneratorRuntime = regeneratorRuntime;
 
     const testInterface = j.getInterface();
     Object.assign(win, testInterface);
