@@ -36,9 +36,13 @@ function printResult(
 }
 
 function formatError(message: string, stack: string) {
-  return message
+  let error = message + "\n" + stack;
+  if (message.startsWith("SyntaxError") && message.includes("^")) {
+    error = message;
+  }
+
+  return error
     .split("\n")
-    .concat(stack.split("\n"))
     .map((line) => {
       let output = line;
 

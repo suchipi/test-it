@@ -1,6 +1,7 @@
-import fs from "fs";
 import util from "util";
-import Reporter from "@zayith/default-reporter";
+import DefaultReporter from "@zayith/default-reporter";
+// @ts-ignore
+import defaultLoader from "@zayith/default-loader";
 import makeDebug from "debug";
 
 const debug = makeDebug("@zayith/core:config.ts");
@@ -28,12 +29,8 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
     reporters:
       config.reporters && config.reporters.length > 0
         ? config.reporters
-        : [new Reporter()],
-    loader:
-      config.loader ||
-      ((filename: string) => {
-        return fs.readFileSync(filename, "utf-8");
-      }),
+        : [new DefaultReporter()],
+    loader: config.loader || defaultLoader,
     resolveExtensions:
       config.resolveExtensions && config.resolveExtensions.length > 0
         ? config.resolveExtensions

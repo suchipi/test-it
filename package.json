@@ -5,7 +5,8 @@
     "packages/cli",
     "packages/tests",
     "packages/stub",
-    "packages/default-reporter"
+    "packages/default-reporter",
+    "packages/default-loader"
   ],
   "scripts": {
     "build": "cd packages/core && yarn build && cd ../cli && yarn build && cd ../default-reporter && yarn build",
