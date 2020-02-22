@@ -2,11 +2,11 @@ const path = require("path");
 const runZayith = require("../run-zayith");
 
 test("loader", async () => {
-  const result = await runZayith(
+  const result = await runZayith([
     "--loader",
     path.join(__dirname, "loader.js"),
-    path.join(__dirname, "*.zayith.js")
-  );
+    path.join(__dirname, "*.zayith.js"),
+  ]);
 
   const rootDir = path.join(__dirname, "..", "..", "..");
   const stdoutWithoutRootDir = result.stdout

@@ -8,19 +8,21 @@ const zayith = (...args) =>
     ...args,
   ]);
 
-module.exports = async function runZayith(...args) {
+module.exports = async function runZayith(args, opts = {}) {
   const run = zayith(...args);
   await run.completion;
   expect(run.result.error).toBe(false);
 
-  const lines = run.result.stdout.split("\n");
-  const indexOfLineWithRunTimeInIt = lines.length - 3;
-  lines[indexOfLineWithRunTimeInIt] = lines[indexOfLineWithRunTimeInIt].replace(
-    /in [\d.]+ sec/,
-    "in X sec"
-  );
+  let cleanedStdout = run.result.stdout;
+  if (!opts.skipSanitization) {
+    const lines = run.result.stdout.split("\n");
+    const indexOfLineWithRunTimeInIt = lines.length - 3;
+    lines[indexOfLineWithRunTimeInIt] = lines[
+      indexOfLineWithRunTimeInIt
+    ].replace(/in [\d.]+ sec/, "in X sec");
 
-  const cleanedStdout = lines.join("\n");
+    cleanedStdout = lines.join("\n");
+  }
 
   return {
     stdout: cleanedStdout,

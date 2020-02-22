@@ -2,7 +2,7 @@ const path = require("path");
 const runZayith = require("../run-zayith");
 
 test("dom", async () => {
-  const result = await runZayith(path.join(__dirname, "*.zayith.js"));
+  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
     "Jasmine started

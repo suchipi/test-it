@@ -2,11 +2,11 @@ const path = require("path");
 const runZayith = require("../run-zayith");
 
 test("extensions", async () => {
-  const result = await runZayith(
+  const result = await runZayith([
     "--resolve-extensions",
     "js,txt",
-    path.join(__dirname, "*.zayith.js")
-  );
+    path.join(__dirname, "*.zayith.js"),
+  ]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
     "Jasmine started
