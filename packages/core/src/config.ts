@@ -1,6 +1,6 @@
 import fs from "fs";
 import util from "util";
-import Reporter from "./reporter";
+import Reporter from "@zayith/default-reporter";
 import makeDebug from "debug";
 
 const debug = makeDebug("@zayith/core:config.ts");

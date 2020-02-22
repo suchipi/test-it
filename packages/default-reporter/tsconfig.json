@@ -1,0 +1,29 @@
+{
+  "include": ["../../node_modules/nwjs-types/nwjs.d.ts", "./src"],
+  "exclude": ["./src/**/*.test.ts"],
+
+  "compilerOptions": {
+    "lib": ["es2019", "dom"],
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    "jsx": "react"
+  }
+}

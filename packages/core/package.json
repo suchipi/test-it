@@ -13,7 +13,8 @@
     "debug": "^4.1.1",
     "expect": "^25.1.0",
     "nwjs-types": "^1.0.0",
-    "resolve": "^1.15.1"
+    "resolve": "^1.15.1",
+    "@zayith/default-reporter": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "^3.8.2"
