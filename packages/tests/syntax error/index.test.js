@@ -1,22 +1,10 @@
 const path = require("path");
-const { spawn } = require("first-base");
-
-const zayith = (...args) =>
-  spawn("../../node_modules/.bin/zayith", ["--seed", "1234", ...args]);
+const runZayith = require("../run-zayith");
 
 test("syntax error", async () => {
-  const run = zayith(path.join(__dirname, "*.zayith.js"));
-  await run.completion;
-  expect(run.result.error).toBe(false);
+  const result = await runZayith(path.join(__dirname, "*.zayith.js"));
 
-  const lines = run.result.stdout.split("\n");
-  const indexOfLineWithRunTimeInIt = lines.length - 3;
-  lines[indexOfLineWithRunTimeInIt] = lines[indexOfLineWithRunTimeInIt].replace(
-    /in [\d.]+ sec/,
-    "in X sec"
-  );
-
-  expect(lines.join("\n")).toMatchInlineSnapshot(`
+  expect(result.stdout).toMatchInlineSnapshot(`
     "Jasmine started
 
       syntax error/index.zayith.js
@@ -34,7 +22,6 @@ test("syntax error", async () => {
     Randomized with seed 1234.
     "
   `);
-  expect(run.result.stderr).toBe("");
-
-  expect(run.result.code).toBe(1);
+  expect(result.stderr).toBe("");
+  expect(result.code).toBe(1);
 });
