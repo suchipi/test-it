@@ -35,6 +35,11 @@ const child = child_process.spawn(
   ],
   {
     cwd: process.cwd(),
+    env: {
+      ...process.env,
+      // TODO: node-nw isn't forwarding color detection properly
+      FORCE_COLOR: "3",
+    },
   }
 );
 

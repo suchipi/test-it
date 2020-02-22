@@ -73,12 +73,15 @@ export function makeDelegate(config: NormalizedConfig, win: any) {
           moduleEnv.__dirname
         );
       } catch (err) {
-        const newStack = err.stack.replace(
-          /at eval \(\<anonymous\>\)/,
-          `at '${filepath}'`
-        );
-        Object.defineProperty(err, "stack", { value: newStack });
-        throw err;
+        const newError = {
+          name: err.name,
+          message: err.message,
+          stack: `at eval (${filepath})`,
+        };
+
+        debug(`Wrapped error: ${JSON.stringify(newError)}`);
+
+        throw newError;
       }
     },
   };

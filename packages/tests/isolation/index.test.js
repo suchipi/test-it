@@ -5,20 +5,14 @@ test("isolation", async () => {
   const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "Jasmine started
+    "isolation/first.zayith.js
+      first
+        [32m✓ is isolated from other tests[39m
+    isolation/second.zayith.js
+      second
+        [32m✓ is isolated from other tests[39m
 
-      isolation/first.zayith.js
-
-        first
-          [32m✓ is isolated from other tests[39m
-
-      isolation/second.zayith.js
-
-        second
-          [32m✓ is isolated from other tests[39m
-
-    Executed 2 of 2 specs[32m SUCCESS[39m in X sec.
-    Randomized with seed 1234.
+    [1m[1m[38;2;35;209;139m2 passed[39m[22m[1m, 2 total[22m
     "
   `);
   expect(result.stderr).toBe("");

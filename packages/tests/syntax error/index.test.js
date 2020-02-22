@@ -5,21 +5,15 @@ test("syntax error", async () => {
   const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "Jasmine started
+    "syntax error/index.zayith.js
+      [31m✕ error in describe or before/after callback[39m
 
-      syntax error/index.zayith.js
-        [31m✗ syntax error/index.zayith.js[39m
-          [31m- [39m[31mSyntaxError: Unexpected identifier[39m
+    [38;2;241;76;76m[1m● syntax error/index.zayith.js[22m[39m
 
-    **************************************************
-    *                     Errors                     *
-    **************************************************
+      SyntaxError: Unexpected identifier
+          at <Jasmine>
 
-    1) syntax error/index.zayith.js
-      [31m- [39m[31mSyntaxError: Unexpected identifier[39m
-
-    Executed 0 of 0 specs[31m (1 ERROR)[39m in X sec.
-    Randomized with seed 1234.
+    [1m[1m[38;2;241;76;76m1 failed[39m[22m[1m, 1 total[22m
     "
   `);
   expect(result.stderr).toBe("");

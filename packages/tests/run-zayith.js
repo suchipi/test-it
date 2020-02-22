@@ -13,21 +13,5 @@ module.exports = async function runZayith(args, opts = {}) {
   await run.completion;
   expect(run.result.error).toBe(false);
 
-  let cleanedStdout = run.result.stdout;
-  if (!opts.skipSanitization) {
-    const lines = run.result.stdout.split("\n");
-    const indexOfLineWithRunTimeInIt = lines.length - 3;
-    lines[indexOfLineWithRunTimeInIt] = lines[
-      indexOfLineWithRunTimeInIt
-    ].replace(/in [\d.]+ sec/, "in X sec");
-
-    cleanedStdout = lines.join("\n");
-  }
-
-  return {
-    stdout: cleanedStdout,
-    stderr: run.result.stderr,
-    code: run.result.code,
-    error: run.result.error,
-  };
+  return run.result;
 };

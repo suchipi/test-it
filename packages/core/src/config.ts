@@ -1,6 +1,6 @@
 import fs from "fs";
 import util from "util";
-import { SpecReporter } from "jasmine-spec-reporter";
+import Reporter from "./reporter";
 import makeDebug from "debug";
 
 const debug = makeDebug("@zayith/core:config.ts");
@@ -28,7 +28,7 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
     reporters:
       config.reporters && config.reporters.length > 0
         ? config.reporters
-        : [new SpecReporter()],
+        : [new Reporter()],
     loader:
       config.loader ||
       ((filename: string) => {

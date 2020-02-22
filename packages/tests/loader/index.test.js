@@ -27,15 +27,11 @@ test("loader", async () => {
     LOADER: <root>/node_modules/prop-types/checkPropTypes.js
     LOADER: <root>/node_modules/prop-types/lib/ReactPropTypesSecret.js
     LOADER: <root>/packages/tests/loader/App.jsx
-    Jasmine started
+    loader/index.zayith.js
+      basic
+        [32m✓ JSX works[39m
 
-      loader/index.zayith.js
-
-        basic
-          [32m✓ JSX works[39m
-
-    Executed 1 of 1 spec[32m SUCCESS[39m in X sec.
-    Randomized with seed 1234.
+    [1m[1m[38;2;35;209;139m1 passed[39m[22m[1m, 1 total[22m
     "
   `);
   expect(result.stderr).toBe("");
