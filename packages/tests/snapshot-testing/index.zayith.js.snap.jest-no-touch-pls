@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot-testing first test`] = `
+Object {
+  "haha": "woop woop",
+}
+`;
+
+exports[`snapshot-testing second test`] = `[Error: hi]`;

@@ -17,6 +17,7 @@ type CliConfig = {
   help?: boolean;
   version?: boolean;
   resolveExtensions?: Array<string>;
+  updateSnapshots: boolean;
 };
 
 export const usage = [
@@ -71,6 +72,14 @@ export const usage = [
   ``,
   `    Example: zayith --resolve-extensions js,jsx,json,mjs,png`,
   ``,
+  `  --update-snapshots, -u: Update test snapshots.`,
+  ``,
+  `    This option force-updates any test snapshots created with`,
+  `    'expect(...).toMatchSnapshot()'.`,
+  ``,
+  `    Example: zayith --update-snapshots`,
+  `    Example: zayith -u`,
+  ``,
   `  --seed: Specify a seed for Zayith's random test ordering.`,
   ``,
   `    Zayith runs tests in a random order by default, to help you`,
@@ -100,7 +109,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     string: ["loader", "resolveExtensions"],
     array: ["reporters"],
     number: ["seed"],
-    boolean: ["halp, varsion"],
+    boolean: ["halp", "varsion", "updateSnapshots", "u"],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -123,6 +132,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
           .split(",")
           .map((ext: string) => (ext.startsWith(".") ? ext : "." + ext))
       : undefined,
+    updateSnapshots: Boolean(opts.updateSnapshots || opts.u),
   };
 }
 
@@ -160,6 +170,8 @@ export function convertCliConfig(cliConfig: CliConfig): Config {
   if (cliConfig.resolveExtensions) {
     outputConfig.resolveExtensions = cliConfig.resolveExtensions;
   }
+
+  outputConfig.updateSnapshots = cliConfig.updateSnapshots;
 
   return outputConfig;
 }

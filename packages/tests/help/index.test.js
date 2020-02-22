@@ -2,7 +2,7 @@ const path = require("path");
 const runZayith = require("../run-zayith");
 
 test("help", async () => {
-  const result = await runZayith(["--help"], { skipSanitization: true });
+  const result = await runZayith(["--help"]);
 
   expect(result.stdout).toBe("");
   expect(result.stderr).toMatchInlineSnapshot(`
@@ -56,6 +56,14 @@ test("help", async () => {
         The default value is \\"js,json,mjs,jsx,ts,tsx,node\\".
 
         Example: zayith --resolve-extensions js,jsx,json,mjs,png
+
+      --update-snapshots, -u: Update test snapshots.
+
+        This option force-updates any test snapshots created with
+        'expect(...).toMatchSnapshot()'.
+
+        Example: zayith --update-snapshots
+        Example: zayith -u
 
       --seed: Specify a seed for Zayith's random test ordering.
 

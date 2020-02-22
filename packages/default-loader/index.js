@@ -3,6 +3,10 @@ const path = require("path");
 const babel = require("@babel/core");
 
 module.exports = (filename) => {
+  if (filename.endsWith(".json")) {
+    return "module.exports = " + fs.readFileSync(filename);
+  }
+
   let config;
   const maybeConfigPath = path.join(process.cwd(), "babel.config.js");
   if (fs.existsSync(maybeConfigPath)) {

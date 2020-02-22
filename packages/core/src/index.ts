@@ -10,6 +10,7 @@ import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
 // @ts-ignore
 import regeneratorRuntime from "regenerator-runtime";
+import { setupMatchers } from "./builtin-matchers";
 
 const debug = makeDebug("@zayith/core:index.ts");
 
@@ -29,6 +30,8 @@ export async function runTests(inputConfig: Config): Promise<any> {
   }
 
   config.reporters.forEach((reporter) => j.addReporter(reporter));
+
+  setupMatchers(expect, config);
 
   for (let filename of config.testFiles) {
     if (!path.isAbsolute(filename)) {
@@ -52,11 +55,14 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.global = win;
     win.process = process;
     win.regeneratorRuntime = regeneratorRuntime;
+    win.Buffer = Buffer;
 
     const testInterface = j.getInterface();
     Object.assign(win, testInterface);
 
     win.expect = expect;
+
+    // jest compat
     win.test = win.it;
     win.it.only = win.fit;
     win.test.only = win.fit;
@@ -64,6 +70,10 @@ export async function runTests(inputConfig: Config): Promise<any> {
     win.it.skip = win.xit;
     win.test.skip = win.xit;
     win.describe.skip = win.xdescribe;
+
+    // mocha compat
+    win.before = win.beforeAll;
+    win.after = win.afterAll;
 
     const delegate = makeDelegate(config, win);
 
