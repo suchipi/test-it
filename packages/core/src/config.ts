@@ -3,18 +3,20 @@ import util from "util";
 import { SpecReporter } from "jasmine-spec-reporter";
 import makeDebug from "debug";
 
-const debug = makeDebug("@lotus/core:config.ts");
+const debug = makeDebug("@zayith/core:config.ts");
 
 export type PartialConfig = {
   testFiles: Array<string>;
   reporters?: Array<jasmine.CustomReporter>;
   loader?: (filename: string) => Promise<string>;
+  seed?: number;
 };
 
 export type NormalizedConfig = {
   testFiles: Array<string>;
   reporters: Array<jasmine.CustomReporter>;
   loader: (filename: string) => Promise<string>;
+  seed?: number;
 };
 
 export function normalizeConfig(config: PartialConfig): NormalizedConfig {
@@ -31,5 +33,6 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
         const code = await util.promisify(fs.readFile)(filename, "utf-8");
         return code;
       }),
+    seed: config.seed,
   };
 }

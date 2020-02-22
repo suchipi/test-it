@@ -2,17 +2,18 @@ import util from "util";
 import path from "path";
 import globby from "globby";
 import yargsParser from "yargs-parser";
-import { Config } from "@lotus/core";
+import { Config } from "@zayith/core";
 // @ts-ignore
 import makeModuleEnv from "make-module-env";
 import makeDebug from "debug";
 
-const debug = makeDebug("@lotus/cli:config.ts");
+const debug = makeDebug("@zayith/cli:config.ts");
 
 type CliConfig = {
   testFiles: Array<string>; // glob strings
   reporters?: Array<string>;
   loader?: string;
+  seed?: number;
 };
 
 function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
@@ -21,6 +22,7 @@ function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   const opts = yargsParser(argv, {
     string: ["loader"],
     array: ["reporters"],
+    number: ["seed"],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -29,17 +31,18 @@ function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     testFiles:
       opts._ && opts._.length > 0
         ? opts._
-        : ["./**/*.test.js", "!**/node_modules/**"],
+        : ["**/?(*.)+(spec|test).[jt]s?(x)", "!**/node_modules/**"],
     reporters: (Array.isArray(opts.reporters)
       ? opts.reporters
       : [opts.reporters]
     ).filter(Boolean),
     loader: opts.loader,
+    seed: opts.seed,
   };
 }
 
 function convertCliConfig(cliConfig: CliConfig): Config {
-  const env = makeModuleEnv(path.join(process.cwd(), "lotus-context.js"));
+  const env = makeModuleEnv(path.join(process.cwd(), "zayith-context.js"));
 
   const outputConfig: Config = {
     testFiles: globby.sync(cliConfig.testFiles),
@@ -63,6 +66,10 @@ function convertCliConfig(cliConfig: CliConfig): Config {
     if (result.__esModule && result.default) result = result.default;
 
     outputConfig.loader = result;
+  }
+
+  if (cliConfig.seed != null) {
+    outputConfig.seed = cliConfig.seed;
   }
 
   return outputConfig;
