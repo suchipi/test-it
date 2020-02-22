@@ -5,8 +5,8 @@ test("version", async () => {
   const result = await runZayith(["--version"], { skipSanitization: true });
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "@zayith/cli: 0.1.1
-    @zayith/core: 0.1.0
+    "@zayith/cli: 0.2.0
+    @zayith/core: 0.2.0
     "
   `);
   expect(result.stderr).toBe("");
