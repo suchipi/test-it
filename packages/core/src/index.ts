@@ -1,14 +1,11 @@
 import path from "path";
 import util from "util";
 import expect from "expect";
-// @ts-ignore
 import Jasmine from "@suchipi/jasmine-mini";
 import { PartialConfig, normalizeConfig } from "./config";
-// @ts-ignore
 import { Module } from "commonjs-standalone";
 import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
-// @ts-ignore
 import regeneratorRuntime from "regenerator-runtime";
 import { setupMatchers } from "./builtin-matchers";
 

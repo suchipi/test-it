@@ -1,7 +1,6 @@
 import util from "util";
 import DefaultReporter from "@test-it/default-reporter";
 import SnapshotReporter from "./snapshot-reporter";
-// @ts-ignore
 import defaultLoader from "@test-it/default-loader";
 import makeDebug from "debug";
 

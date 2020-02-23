@@ -86,7 +86,7 @@ function specCountSummary(
   const numSkipped = results.filter((result) => result.status === "pending")
     .length;
 
-  let summaryNotes = [];
+  let summaryNotes: Array<string> = [];
   if (numFailed > 0) {
     summaryNotes.push(chalk.bold(chalk.hex(lightRed)(`${numFailed} failed`)));
   }

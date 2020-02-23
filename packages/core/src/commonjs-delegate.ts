@@ -1,9 +1,6 @@
 import path from "path";
-// @ts-ignore
 import builtins from "builtins";
-// @ts-ignore
 import resolve from "resolve";
-// @ts-ignore
 import { NormalizedConfig } from "./config";
 import makeDebug from "debug";
 

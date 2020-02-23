@@ -3,7 +3,6 @@ import path from "path";
 import globby from "globby";
 import yargsParser from "yargs-parser";
 import { Config } from "@test-it/core";
-// @ts-ignore
 import makeModuleEnv from "make-module-env";
 import makeDebug from "debug";
 

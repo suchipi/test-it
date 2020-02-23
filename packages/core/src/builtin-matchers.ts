@@ -3,7 +3,6 @@ import chalk from "chalk";
 import prettyFormat from "pretty-format";
 import chai from "chai";
 import { diffLinesUnified } from "jest-diff";
-// @ts-ignore
 import chaiJestSnapshot from "chai-jest-snapshot";
 import SnapshotReporter from "./snapshot-reporter";
 import { NormalizedConfig } from "./config";
