@@ -1,8 +1,0 @@
-{
-  "name": "test-it",
-  "version": "0.1.1",
-  "license": "MIT",
-  "scripts": {
-    "postinstall": "node -e \"try{require('./postinstall.js')}catch(e){}\""
-  }
-}

@@ -4,7 +4,6 @@
     "packages/core",
     "packages/cli",
     "packages/tests",
-    "packages/stub",
     "packages/default-reporter",
     "packages/default-loader"
   ],
