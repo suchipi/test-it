@@ -28,6 +28,14 @@ module.exports = (filename) => {
     }
   }
 
+  // Always add the plugin that compiles ESM to commonjs,
+  // because we *have* to use commonjs in test-it, but people
+  // might be outputting ESM eg. for webpack to consume
+  config = {
+    ...config,
+    plugins: [...config.plugins, "@babel/plugin-transform-modules-commonjs"],
+  };
+
   const result = babel.transformFileSync(filename, config);
   return result.code;
 };
