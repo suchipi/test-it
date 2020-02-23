@@ -1,5 +1,5 @@
 {
-  "name": "@zayith/cli",
+  "name": "@test-it/cli",
   "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
@@ -12,12 +12,12 @@
     "debug": "^4.1.1",
     "globby": "^11.0.0",
     "make-module-env": "^1.0.1",
-    "node-nw": "^0.5.0",
+    "node-nw": "^0.5.1",
     "nwjs-types": "^1.0.0",
     "yargs-parser": "^17.0.0"
   },
   "peerDependencies": {
-    "@zayith/core": "^0.3.0"
+    "@test-it/core": "^0.3.0"
   },
   "devDependencies": {
     "typescript": "^3.8.2"
@@ -26,6 +26,6 @@
     "build": "tsc"
   },
   "bin": {
-    "zayith": "dist/cli.js"
+    "test-it": "dist/cli.js"
   }
 }

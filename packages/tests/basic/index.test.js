@@ -1,21 +1,21 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("basic", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "basic/index.zayith.js
+    "basic/index.test-it.js
       basic
         [31m✕ failing test[39m
         [33m○ pending test[39m
         [32m✓ succeeding test[39m
 
-    [38;2;241;76;76m[1m● basic/index.zayith.js basic failing test[22m[39m
+    [38;2;241;76;76m[1m● basic/index.test-it.js basic failing test[22m[39m
 
       [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
-      
-      
+
+
       Expected: [32m5[39m
       Received: [31m4[39m
       error properties: Object({ matcherResult: Object({ actual: 4, expected: 5, message: Function, name: 'toBe', pass: false }) })

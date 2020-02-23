@@ -2,7 +2,7 @@ import chalk from "chalk";
 import util from "util";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/core:reporter.ts");
+const debug = makeDebug("@test-it/core:reporter.ts");
 
 const lightRed = "#f14c4c";
 const lightGreen = "#23d18b";

@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("nw", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "nw/index.zayith.js
+    "nw/index.test-it.js
       nw
         [32m✓ can access NW.js APIs[39m
 

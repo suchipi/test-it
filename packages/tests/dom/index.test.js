@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("dom", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "dom/index.zayith.js
+    "dom/index.test-it.js
       dom
         [32m✓ can access a real DOM (Chromium)[39m
 

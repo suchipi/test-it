@@ -1,6 +1,6 @@
-# Zayith
+# Test-It
 
-Zayith is a test framework that combines the best of node and the browser.
+Test-It is a test framework that combines the best of node and the browser.
 
 ## The Problem
 
@@ -33,54 +33,54 @@ If there was a test framework that could run code with access to a Real DOM **an
 - No need for a test server that wraps `fs`, because you can access `fs` directly
 - No need for test compilation/bundling, because you can use `require` right in your tests
 
-**Zayith is that test framework.**
+**Test-It is that test framework.**
 
 ## The Solution
 
-When you run your tests in Zayith, you have access to real DOM APIs _and_ all of node's APIs, including `require`.
+When you run your tests in Test-It, you have access to real DOM APIs _and_ all of node's APIs, including `require`.
 
 Unlike test frameworks built on top of [jsdom](https://github.com/jsdom/jsdom), the DOM APIs here are real; your tests are running in a real Chromium browser.
 
 But also, unlike test frameworks built on top [Karma](https://karma-runner.github.io/latest/index.html), the Node APIs here are _also_ real; your tests are running with full access to all node APIs (such as `require`, `fs`, etc).
 
-Zayith gives you the best of both worlds.
+Test-It gives you the best of both worlds.
 
 ## Installation
 
-First, install `@zayith/core` and `@zayith/cli`:
+First, install `@test-it/core` and `@test-it/cli`:
 
 ```
-npm install --save-dev @zayith/core @zayith/cli
+npm install --save-dev @test-it/core @test-it/cli
 ```
 
 Then, add the following to your `package.json`:
 
 ```json
 "scripts": {
-	"zayith": "zayith"
+	"test-it": "test-it"
 }
 ```
 
-Then, run Zayith using npm:
+Then, run Test-It using npm:
 
 ```
-npm run zayith
+npm run test-it
 ```
 
 ## Usage
 
-By default, Zayith will run against any test files named like `*.test.js`.
+By default, Test-It will run against any test files named like `*.test.js`.
 
-To change this, you can pass glob strings to the `zayith` CLI:
+To change this, you can pass glob strings to the `test-it` CLI:
 
 ```
-npm run zayith -- './**/*.spec.js' '!**/node_modules/**'
+npm run test-it -- './**/*.spec.js' '!**/node_modules/**'
 ```
 
 You can also pass specific filenames:
 
 ```
-npm run zayith -- './tests/first.spec.js' './tests/second.spec.js'
+npm run test-it -- './tests/first.spec.js' './tests/second.spec.js'
 ```
 
-For more usage information run `npm run zayith -- --help`.
+For more usage information run `npm run test-it -- --help`.

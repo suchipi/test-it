@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("basic", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "jest-compat/index.zayith.js
+    "jest-compat/index.test-it.js
       [32m✓ test.only[39m
       [32m✓ it.only[39m
       describe

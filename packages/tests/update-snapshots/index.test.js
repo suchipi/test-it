@@ -1,16 +1,17 @@
 const fs = require("fs");
 const path = require("path");
 const shelljs = require("shelljs");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("snapshot-testing", async () => {
   shelljs.cp(
-    path.join(__dirname, "index.zayith.js.snap.starting-snapshot"),
-    path.join(__dirname, "index.zayith.js.snap")
+    path.join(__dirname, "index.test-it.js.snap.starting-snapshot"),
+    path.join(__dirname, "index.test-it.js.snap")
   );
 
-  expect(fs.readFileSync(path.join(__dirname, "index.zayith.js.snap"), "utf-8"))
-    .toMatchInlineSnapshot(`
+  expect(
+    fs.readFileSync(path.join(__dirname, "index.test-it.js.snap"), "utf-8")
+  ).toMatchInlineSnapshot(`
     "// Jest Snapshot v1, https://goo.gl/fbAQLP
 
     exports[\`snapshot-testing first test\`] = \`
@@ -23,12 +24,12 @@ test("snapshot-testing", async () => {
     "
   `);
 
-  const result = await runZayith([path.join(__dirname, "*.zayith.js"), "-u"], {
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js"), "-u"], {
     cwd: __dirname,
   });
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "index.zayith.js
+    "index.test-it.js
       snapshot-testing
         [32m✓ second test[39m
         [32m✓ first test[39m
@@ -39,8 +40,9 @@ test("snapshot-testing", async () => {
   expect(result.stderr).toBe("");
   expect(result.code).toBe(0);
 
-  expect(fs.readFileSync(path.join(__dirname, "index.zayith.js.snap"), "utf-8"))
-    .toMatchInlineSnapshot(`
+  expect(
+    fs.readFileSync(path.join(__dirname, "index.test-it.js.snap"), "utf-8")
+  ).toMatchInlineSnapshot(`
     "// Jest Snapshot v1, https://goo.gl/fbAQLP
 
     exports[\`snapshot-testing first test\`] = \`
@@ -53,5 +55,5 @@ test("snapshot-testing", async () => {
     "
 	`);
 
-  shelljs.rm(path.join(__dirname, "index.zayith.js.snap"));
+  shelljs.rm(path.join(__dirname, "index.test-it.js.snap"));
 });

@@ -2,12 +2,12 @@ import util from "util";
 import path from "path";
 import globby from "globby";
 import yargsParser from "yargs-parser";
-import { Config } from "@zayith/core";
+import { Config } from "@test-it/core";
 // @ts-ignore
 import makeModuleEnv from "make-module-env";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/cli:config.ts");
+const debug = makeDebug("@test-it/cli:config.ts");
 
 type CliConfig = {
   testFiles: Array<string>; // glob strings
@@ -22,14 +22,14 @@ type CliConfig = {
 };
 
 export const usage = [
-  `Usage: zayith [options] [testFileGlobs...]`,
+  `Usage: test-it [options] [testFileGlobs...]`,
   `Examples:`,
-  `  zayith`,
-  `  zayith --help`,
-  `  zayith './tests/**/*.js'`,
-  `  zayith --seed 1234`,
-  `  zayith --seed 1234 './tests/**/*.js'`,
-  `  zayith './tests/**/*.js' '!**/*.snapshot.js'`,
+  `  test-it`,
+  `  test-it --help`,
+  `  test-it './tests/**/*.js'`,
+  `  test-it --seed 1234`,
+  `  test-it --seed 1234 './tests/**/*.js'`,
+  `  test-it './tests/**/*.js' '!**/*.snapshot.js'`,
   ``,
   `Options:`,
   `  --test-setup-files: A comma-separated list of files to run before each test file.`,
@@ -37,17 +37,17 @@ export const usage = [
   `    A comma-separated list of paths to modules that run some code to`,
   `    configure or set up the testing environment.`,
   ``,
-  `    Example: zayith --test-setup-files ./test-setup.js`,
-  `    Example: zayith --test-setup-files ./test-setup.js,./other-test-setup.js`,
+  `    Example: test-it --test-setup-files ./test-setup.js`,
+  `    Example: test-it --test-setup-files ./test-setup.js,./other-test-setup.js`,
   ``,
   `  --reporters: Specify which test reporter module(s) to use.`,
   ``,
-  `    Example: zayith --reporter some-reporter-from-npm`,
-  `    Example: zayith --reporter ./my-reporter.js`,
-  `    Example: zayith --reporter ./my-reporter.js,another-reporter`,
+  `    Example: test-it --reporter some-reporter-from-npm`,
+  `    Example: test-it --reporter ./my-reporter.js`,
+  `    Example: test-it --reporter ./my-reporter.js,another-reporter`,
   ``,
   `    Reporters define what to print during (and after) a test run.`,
-  `    When you run Zayith, and it prints a list of what failed, what`,
+  `    When you run Test-It, and it prints a list of what failed, what`,
   `    succeeded, what's pending, etc... that's being printed by your`,
   `    reporter.`,
   ``,
@@ -59,7 +59,7 @@ export const usage = [
   ``,
   `  --loader: Specify which loader module to use.`,
   ``,
-  `    Loader modules tell Zayith how to load and compile your test files.`,
+  `    Loader modules tell Test-It how to load and compile your test files.`,
   ``,
   `    The default loader module supports ES2020, React, TypeScript, and Flow.`,
   ``,
@@ -68,8 +68,8 @@ export const usage = [
   `	   execute in the browser). Loader modules must be synchronous,`,
   `	   because they're called when 'require' is called.`,
   ``,
-  `    Example: zayith --loader some-loader-from-npm`,
-  `    Example: zayith --loader ./my-loader.js`,
+  `    Example: test-it --loader some-loader-from-npm`,
+  `    Example: test-it --loader ./my-loader.js`,
   ``,
   `  --resolve-extensions: Specify which extensions should be implicitly resolved by require.`,
   ``,
@@ -79,19 +79,19 @@ export const usage = [
   ``,
   `    The default value is "js,json,mjs,jsx,ts,tsx,node".`,
   ``,
-  `    Example: zayith --resolve-extensions js,jsx,json,mjs,png`,
+  `    Example: test-it --resolve-extensions js,jsx,json,mjs,png`,
   ``,
   `  --update-snapshots, -u: Update test snapshots.`,
   ``,
   `    This option force-updates any test snapshots created with`,
   `    'expect(...).toMatchSnapshot()'.`,
   ``,
-  `    Example: zayith --update-snapshots`,
-  `    Example: zayith -u`,
+  `    Example: test-it --update-snapshots`,
+  `    Example: test-it -u`,
   ``,
-  `  --seed: Specify a seed for Zayith's random test ordering.`,
+  `  --seed: Specify a seed for Test-It's random test ordering.`,
   ``,
-  `    Zayith runs tests in a random order by default, to help you`,
+  `    Test-It runs tests in a random order by default, to help you`,
   `    avoid situations where code from one test is leaking into`,
   `    another.`,
   ``,
@@ -99,16 +99,16 @@ export const usage = [
   `    deterministic, you can specify a seed value, and the tests`,
   `    will run in the same order each time.`,
   ``,
-  `    Example: zayith --seed 1234`,
-  `    Example: zayith --seed 7`,
+  `    Example: test-it --seed 1234`,
+  `    Example: test-it --seed 7`,
   ``,
   `  --help: Show this usage text.`,
   ``,
-  `    Example: zayith --help`,
+  `    Example: test-it --help`,
   ``,
-  `  --version: Show the versions of @zayith/cli and @zayith/core.`,
+  `  --version: Show the versions of @test-it/cli and @test-it/core.`,
   ``,
-  `    Example: zayith --version`,
+  `    Example: test-it --version`,
 ].join("\n");
 
 export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
@@ -155,7 +155,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
 }
 
 export function convertCliConfig(cliConfig: CliConfig): Config {
-  const env = makeModuleEnv(path.join(process.cwd(), "zayith-context.js"));
+  const env = makeModuleEnv(path.join(process.cwd(), "test-it-context.js"));
 
   const outputConfig: Config = {
     testFiles: globby.sync(cliConfig.testFiles),

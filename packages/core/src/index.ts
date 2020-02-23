@@ -12,7 +12,7 @@ import makeDebug from "debug";
 import regeneratorRuntime from "regenerator-runtime";
 import { setupMatchers } from "./builtin-matchers";
 
-const debug = makeDebug("@zayith/core:index.ts");
+const debug = makeDebug("@test-it/core:index.ts");
 
 export type Config = PartialConfig;
 

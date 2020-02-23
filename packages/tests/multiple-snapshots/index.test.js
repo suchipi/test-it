@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const shelljs = require("shelljs");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("snapshot-testing", async () => {
-  const result = await runZayith([path.join(__dirname, "index.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "index.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "multiple-snapshots/index.zayith.js
+    "multiple-snapshots/index.test-it.js
       snapshot-testing
         [32m✓ first test[39m
 
@@ -18,10 +18,10 @@ test("snapshot-testing", async () => {
   expect(result.code).toBe(0);
 
   const snapshotContent = fs.readFileSync(
-    path.join(__dirname, "index.zayith.js.snap"),
+    path.join(__dirname, "index.test-it.js.snap"),
     "utf-8"
   );
-  shelljs.rm(path.join(__dirname, "index.zayith.js.snap"));
+  shelljs.rm(path.join(__dirname, "index.test-it.js.snap"));
 
   expect(snapshotContent).toMatchInlineSnapshot(`
     "// Jest Snapshot v1, https://goo.gl/fbAQLP

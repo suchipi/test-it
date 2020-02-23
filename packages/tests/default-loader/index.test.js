@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("basic", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "default-loader/index.zayith.js
+    "default-loader/index.test-it.js
       [32m✓ can load ts[39m
       [32m✓ can load tsx[39m
       [32m✓ can load flow[39m

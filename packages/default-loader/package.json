@@ -1,5 +1,5 @@
 {
-  "name": "@zayith/default-loader",
+  "name": "@test-it/default-loader",
   "version": "0.3.0",
   "license": "MIT",
   "main": "index.js",

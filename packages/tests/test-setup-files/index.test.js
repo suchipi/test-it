@@ -1,10 +1,10 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("global", async () => {
-  const result = await runZayith(
+  const result = await runTestIt(
     [
-      path.join(__dirname, "*.zayith.js"),
+      path.join(__dirname, "*.test-it.js"),
       "--test-setup-files",
       path.join(__dirname, "setup.js"),
     ],
@@ -14,7 +14,7 @@ test("global", async () => {
   );
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "index.zayith.js
+    "index.test-it.js
       [32m✓ runs after the test setup file[39m
 
     [1m[1m[38;2;35;209;139m1 passed[39m[22m[1m, 1 total[22m

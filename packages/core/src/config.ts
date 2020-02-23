@@ -1,11 +1,11 @@
 import util from "util";
-import DefaultReporter from "@zayith/default-reporter";
+import DefaultReporter from "@test-it/default-reporter";
 import SnapshotReporter from "./snapshot-reporter";
 // @ts-ignore
-import defaultLoader from "@zayith/default-loader";
+import defaultLoader from "@test-it/default-loader";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/core:config.ts");
+const debug = makeDebug("@test-it/core:config.ts");
 
 export type PartialConfig = {
   testFiles: Array<string>;

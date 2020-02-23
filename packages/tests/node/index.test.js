@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("node", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "node/index.zayith.js
+    "node/index.test-it.js
       node
         [32m✓ can \`require\` using a relative path[39m
         [32m✓ can \`require\` builtins[39m

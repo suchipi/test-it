@@ -1,1 +1,1 @@
-This package contains integrations tests for Zayith.
+This package contains integrations tests for Test-It.

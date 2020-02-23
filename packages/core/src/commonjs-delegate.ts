@@ -7,7 +7,7 @@ import resolve from "resolve";
 import { NormalizedConfig } from "./config";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/core:commonjs-delegate.ts");
+const debug = makeDebug("@test-it/core:commonjs-delegate.ts");
 
 export function makeDelegate(config: NormalizedConfig, win: any) {
   const realRequire = require;

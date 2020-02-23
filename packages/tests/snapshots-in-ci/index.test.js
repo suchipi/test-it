@@ -1,10 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const shelljs = require("shelljs");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("snapshot-testing", async () => {
-  const result = await runZayith([path.join(__dirname, "index.zayith.js")], {
+  const result = await runTestIt([path.join(__dirname, "index.test-it.js")], {
     env: {
       ...process.env,
       CI: "true",
@@ -12,17 +12,17 @@ test("snapshot-testing", async () => {
   });
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "snapshots-in-ci/index.zayith.js
+    "snapshots-in-ci/index.test-it.js
       snapshots-in-ci
         [31m✕ first test[39m
 
-    [38;2;241;76;76m[1m● snapshots-in-ci/index.zayith.js snapshots-in-ci first test[22m[39m
+    [38;2;241;76;76m[1m● snapshots-in-ci/index.test-it.js snapshots-in-ci first test[22m[39m
 
       Error: [1m[31mexpected value to match snapshot snapshots-in-ci first test[39m[22m
-      
+
       [32m- Snapshot[39m
       [31m+ Received[39m
-      
+
       [31m+ Object {[39m
       [31m+   \\"number\\": \\"one\\",[39m
       [31m+ }[39m
@@ -36,7 +36,7 @@ test("snapshot-testing", async () => {
   expect(result.stderr).toBe("");
   expect(result.code).toBe(1);
 
-  expect(fs.existsSync(path.join(__dirname, "index.zayith.js.snap"))).toBe(
+  expect(fs.existsSync(path.join(__dirname, "index.test-it.js.snap"))).toBe(
     false
   );
 });

@@ -1,5 +1,5 @@
 {
-  "name": "@zayith/default-reporter",
+  "name": "@test-it/default-reporter",
   "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",

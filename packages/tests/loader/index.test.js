@@ -1,11 +1,11 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("loader", async () => {
-  const result = await runZayith([
+  const result = await runTestIt([
     "--loader",
     path.join(__dirname, "loader.js"),
-    path.join(__dirname, "*.zayith.js"),
+    path.join(__dirname, "*.test-it.js"),
   ]);
 
   const rootDir = path.join(__dirname, "..", "..", "..");
@@ -17,7 +17,7 @@ test("loader", async () => {
     .join("\n");
 
   expect(stdoutWithoutRootDir).toMatchInlineSnapshot(`
-    "LOADER: <root>/packages/tests/loader/index.zayith.js
+    "LOADER: <root>/packages/tests/loader/index.test-it.js
     LOADER: <root>/node_modules/@babel/runtime/helpers/interopRequireWildcard.js
     LOADER: <root>/node_modules/@babel/runtime/helpers/typeof.js
     LOADER: <root>/node_modules/@babel/runtime/helpers/interopRequireDefault.js
@@ -27,7 +27,7 @@ test("loader", async () => {
     LOADER: <root>/node_modules/prop-types/checkPropTypes.js
     LOADER: <root>/node_modules/prop-types/lib/ReactPropTypesSecret.js
     LOADER: <root>/packages/tests/loader/App.jsx
-    loader/index.zayith.js
+    loader/index.test-it.js
       basic
         [32m✓ JSX works[39m
 

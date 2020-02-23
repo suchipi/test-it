@@ -5,7 +5,7 @@ import chalk from "chalk";
 import child_process from "child_process";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/cli:cli.ts");
+const debug = makeDebug("@test-it/cli:cli.ts");
 
 const nodeNwPkgPath = require.resolve("node-nw/package.json");
 const nodeNwDirectoryPath = path.dirname(nodeNwPkgPath);

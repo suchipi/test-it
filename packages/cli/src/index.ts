@@ -1,10 +1,10 @@
 import util from "util";
 import chalk from "chalk";
-import { runTests } from "@zayith/core";
+import { runTests } from "@test-it/core";
 import { usage, parseArgvIntoCliConfig, convertCliConfig } from "./config";
 import makeDebug from "debug";
 
-const debug = makeDebug("@zayith/cli:index.ts");
+const debug = makeDebug("@test-it/cli:index.ts");
 
 async function main() {
   try {
@@ -14,9 +14,9 @@ async function main() {
     if (cliConfig.help) {
       console.error(usage);
     } else if (cliConfig.version) {
-      console.log(`@zayith/cli: ${require("../package.json").version}`);
+      console.log(`@test-it/cli: ${require("../package.json").version}`);
       console.log(
-        `@zayith/core: ${require("@zayith/core/package.json").version}`
+        `@test-it/core: ${require("@test-it/core/package.json").version}`
       );
     } else {
       const config = convertCliConfig(cliConfig);

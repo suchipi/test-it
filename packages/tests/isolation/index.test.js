@@ -1,14 +1,14 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("isolation", async () => {
-  const result = await runZayith([path.join(__dirname, "*.zayith.js")]);
+  const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "isolation/first.zayith.js
+    "isolation/first.test-it.js
       first
         [32m✓ is isolated from other tests[39m
-    isolation/second.zayith.js
+    isolation/second.test-it.js
       second
         [32m✓ is isolated from other tests[39m
 

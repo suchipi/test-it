@@ -1,5 +1,5 @@
-# `@zayith/cli`
+# `@test-it/cli`
 
-This package contains the Command-Line Interface for the test runner Zayith.
+This package contains the Command-Line Interface for the test runner Test-It.
 
-For more information, check the [main README](https://npm.im/zayith).
+For more information, check the [main README](https://npm.im/test-it).

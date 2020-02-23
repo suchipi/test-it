@@ -1,12 +1,12 @@
 const path = require("path");
-const runZayith = require("../run-zayith");
+const runTestIt = require("../run-test-it");
 
 test("version", async () => {
-  const result = await runZayith(["--version"]);
+  const result = await runTestIt(["--version"]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "@zayith/cli: 0.3.0
-    @zayith/core: 0.3.0
+    "@test-it/cli: 0.3.0
+    @test-it/core: 0.3.0
     "
   `);
   expect(result.stderr).toBe("");
