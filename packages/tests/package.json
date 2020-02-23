@@ -13,5 +13,8 @@
   },
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "testTimeout": 20000
   }
 }
