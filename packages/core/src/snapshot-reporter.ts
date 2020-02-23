@@ -1,21 +1,32 @@
 const stack: Array<string> = [];
+let currentSnapshotNumber = 1;
 
-export default class TestNameReporter implements jasmine.CustomReporter {
-  static get currentTestFile() {
+export default class SnapshotReporter implements jasmine.CustomReporter {
+  static getCurrentTestFile() {
     return stack[0];
   }
 
-  static get currentTestName() {
+  static getCurrentTestName() {
     return stack.slice(1, stack.length).join(" ");
   }
 
-  jasmineStarted(_suiteInfo: jasmine.SuiteInfo) {}
+  static getSnapshotNumber() {
+    const ret = currentSnapshotNumber;
+    currentSnapshotNumber++;
+    return ret;
+  }
+
+  jasmineStarted(_suiteInfo: jasmine.SuiteInfo) {
+    currentSnapshotNumber = 1;
+  }
 
   suiteStarted(result: jasmine.CustomReporterResult) {
+    currentSnapshotNumber = 1;
     stack.push(result.description);
   }
 
   specStarted?(result: jasmine.CustomReporterResult) {
+    currentSnapshotNumber = 1;
     stack.push(result.description);
   }
 

@@ -1,6 +1,6 @@
 import util from "util";
 import DefaultReporter from "@zayith/default-reporter";
-import TestNameReporter from "./test-name-reporter";
+import SnapshotReporter from "./snapshot-reporter";
 // @ts-ignore
 import defaultLoader from "@zayith/default-loader";
 import makeDebug from "debug";
@@ -34,7 +34,7 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
     reporters: (config.reporters && config.reporters.length > 0
       ? config.reporters
       : [new DefaultReporter()]
-    ).concat(new TestNameReporter()),
+    ).concat(new SnapshotReporter()),
     loader: config.loader || defaultLoader,
     resolveExtensions:
       config.resolveExtensions && config.resolveExtensions.length > 0

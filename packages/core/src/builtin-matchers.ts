@@ -5,7 +5,7 @@ import chai from "chai";
 import { diffLinesUnified } from "jest-diff";
 // @ts-ignore
 import chaiJestSnapshot from "chai-jest-snapshot";
-import TestNameReporter from "./test-name-reporter";
+import SnapshotReporter from "./snapshot-reporter";
 import { NormalizedConfig } from "./config";
 
 chai.use(chaiJestSnapshot);
@@ -35,11 +35,17 @@ function serializeLikeSnapshot(value: any): string {
 export const setupMatchers = (expect: any, config: NormalizedConfig) => {
   const matchers = {
     toMatchSnapshot(received: any) {
+      const snapshotNumber = SnapshotReporter.getSnapshotNumber();
+
       const snapshotFilename = path.join(
         process.cwd(),
-        TestNameReporter.currentTestFile + ".snap"
+        SnapshotReporter.getCurrentTestFile() + ".snap"
       );
-      const snapshotName = TestNameReporter.currentTestName;
+      let snapshotName = SnapshotReporter.getCurrentTestName();
+      if (snapshotNumber > 1) {
+        snapshotName += " " + snapshotNumber;
+      }
+
       try {
         chai
           .expect(received)
