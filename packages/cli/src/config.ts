@@ -159,6 +159,11 @@ export function convertCliConfig(cliConfig: CliConfig): Config {
 
   const outputConfig: Config = {
     testFiles: globby.sync(cliConfig.testFiles),
+    updateSnapshots: cliConfig.updateSnapshots
+      ? "all"
+      : process.env.CI === "true"
+      ? "none"
+      : "new",
   };
 
   if (cliConfig.reporters) {
@@ -188,8 +193,6 @@ export function convertCliConfig(cliConfig: CliConfig): Config {
   if (cliConfig.resolveExtensions) {
     outputConfig.resolveExtensions = cliConfig.resolveExtensions;
   }
-
-  outputConfig.updateSnapshots = cliConfig.updateSnapshots;
 
   outputConfig.testSetupFiles = cliConfig.testSetupFiles;
 

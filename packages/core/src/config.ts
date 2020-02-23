@@ -13,7 +13,7 @@ export type PartialConfig = {
   loader?: (filename: string) => string;
   resolveExtensions?: Array<string>;
   seed?: number;
-  updateSnapshots?: boolean;
+  updateSnapshots: "all" | "new" | "none";
   testSetupFiles?: Array<string>;
 };
 
@@ -23,7 +23,7 @@ export type NormalizedConfig = {
   loader: (filename: string) => string;
   resolveExtensions: Array<string>;
   seed?: number;
-  updateSnapshots: boolean;
+  updateSnapshots: "all" | "new" | "none";
   testSetupFiles: Array<string>;
 };
 
@@ -41,7 +41,7 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
         ? config.resolveExtensions
         : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx", ".node"],
     seed: config.seed,
-    updateSnapshots: Boolean(config.updateSnapshots),
+    updateSnapshots: config.updateSnapshots,
     testSetupFiles: config.testSetupFiles || [],
   };
 }
