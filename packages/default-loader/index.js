@@ -27,6 +27,10 @@ module.exports = function defaultLoader(filename) {
     case ".mjs":
     case ".ts":
     case ".tsx": {
+      if (filename.match(/node_modules/)) {
+        return fs.readFileSync(filename, "utf-8");
+      }
+
       const config = {
         presets: [
           ["@babel/preset-env", { targets: { node: "current" } }],
