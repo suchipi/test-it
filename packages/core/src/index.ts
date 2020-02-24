@@ -55,6 +55,7 @@ export async function runTests(
       if (!path.isAbsolute(filename)) {
         filename = path.join(process.cwd(), filename);
       }
+      const relativeFilename = path.relative(process.cwd(), filename);
 
       debug(`Opening window for '${filename}'`);
 
@@ -78,7 +79,49 @@ export async function runTests(
       win.process = process;
       win.regeneratorRuntime = regeneratorRuntime;
       win.Buffer = Buffer;
-      win.console = console;
+
+      const originalConsole = win.console;
+      win.console = {
+        ...originalConsole,
+        assert: (condition: boolean, ...args: Array<any>) => {
+          console.assert(
+            condition,
+            `console.assert (${relativeFilename}):`,
+            ...args
+          );
+          originalConsole.assert(condition, ...args);
+        },
+        dir: (object: any) => {
+          console.log(
+            `console.dir (${relativeFilename}):\n${util.inspect(object)}`
+          );
+          originalConsole.dir(object);
+        },
+        error: (...args: Array<any>) => {
+          console.error(`console.error (${relativeFilename}):`, ...args);
+          originalConsole.error(...args);
+        },
+        info: (...args: Array<any>) => {
+          console.info(`console.info (${relativeFilename}):`, ...args);
+          originalConsole.info(...args);
+        },
+        log: (...args: Array<any>) => {
+          console.log(`console.log (${relativeFilename}):`, ...args);
+          originalConsole.log(...args);
+        },
+        warn: (...args: Array<any>) => {
+          console.warn(`console.warn (${relativeFilename}):`, ...args);
+          originalConsole.warn(...args);
+        },
+        time: (label: string) => {
+          console.time(`console.time (${relativeFilename}): ${label}`);
+          originalConsole.time(label);
+        },
+        timeEnd: (label: string) => {
+          console.timeEnd(`console.timeEnd (${relativeFilename}): ${label}`);
+          originalConsole.timeEnd(label);
+        },
+      };
 
       const testInterface = j.getInterface();
       Object.assign(win, testInterface);
@@ -101,7 +144,7 @@ export async function runTests(
       const delegate = makeDelegate(config, win);
       const requireCache = {};
 
-      testInterface.describe(path.relative(process.cwd(), filename), () => {
+      testInterface.describe(relativeFilename, () => {
         debug(
           `Running test setup files: ${util.inspect(config.testSetupFiles)}`
         );
