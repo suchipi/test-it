@@ -123,6 +123,25 @@ export async function runTests(
         },
       };
 
+      win.TestIt = {
+        async captureScreenshot() {
+          const captureScreenshot = util.promisify(
+            // @ts-ignore
+            testWindow.captureScreenshot.bind(testWindow)
+          );
+
+          // Seems to be a bug in NW.js here; captureScreenshot
+          // never resolves unless the page is visible.
+          testWindow.show(true);
+          const base64 = await captureScreenshot({
+            fullsize: true,
+          });
+          testWindow.show(false);
+
+          return Buffer.from(base64, "base64");
+        },
+      };
+
       const testInterface = j.getInterface();
       Object.assign(win, testInterface);
 
