@@ -78,6 +78,7 @@ export async function runTests(
       win.process = process;
       win.regeneratorRuntime = regeneratorRuntime;
       win.Buffer = Buffer;
+      win.console = console;
 
       const testInterface = j.getInterface();
       Object.assign(win, testInterface);
