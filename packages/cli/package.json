@@ -1,6 +1,6 @@
 {
   "name": "@test-it/cli",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -9,7 +9,7 @@
     "debug": "^4.1.1",
     "globby": "^11.0.0",
     "make-module-env": "^1.0.1",
-    "node-nw": "^0.5.1",
+    "node-nw": "^0.5.2",
     "nwjs-types": "^1.0.0",
     "yargs-parser": "^17.0.0"
   },
