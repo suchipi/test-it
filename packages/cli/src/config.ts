@@ -153,11 +153,14 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   };
 }
 
-export function convertCliConfig(cliConfig: CliConfig): Config {
+export async function convertCliConfig(cliConfig: CliConfig): Promise<Config> {
   const env = makeModuleEnv(path.join(process.cwd(), "test-it-context.js"));
 
+  debug(`Expanding globs: ${util.inspect(cliConfig.testFiles)}`);
+  const testFiles = await globby(cliConfig.testFiles);
+
   const outputConfig: Config = {
-    testFiles: globby.sync(cliConfig.testFiles),
+    testFiles,
     updateSnapshots: cliConfig.updateSnapshots
       ? "all"
       : process.env.CI === "true"

@@ -25,7 +25,7 @@ async function main() {
         `@test-it/core: ${require("@test-it/core/package.json").version}`
       );
     } else {
-      const config = convertCliConfig(cliConfig);
+      const config = await convertCliConfig(cliConfig);
       debug(`Parsed Config: ${util.inspect(config)}`);
 
       // Open dummy window so that process doesn't exit when last test window is closed.
