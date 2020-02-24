@@ -2,6 +2,15 @@
 
 Test-It is a test framework that combines the best of node and the browser.
 
+## Features
+
+- Your tests have full access to a Real DOM _and_ Node.js APIs
+- Out-of-the-box support for TypeScript, React, Flow, ES Modules, and more
+- Same `describe`, `it`, `expect` API as [Jest](https://jestjs.io/)
+- Use `debug` instead of `it` to open your test in a browser and debug with Chrome DevTools
+- Support for snapshot testing via `expect(value).toMatchSnapshot()`
+- Use `await TestIt.captureScreenshot()` to capture a screenshot of the page (returns a `Buffer` of PNG data)
+
 ## The Problem
 
 When running in a test framework built on top of node, like [Jest](https://jestjs.io/), you don't have access to real DOM APIs, like `window` and `document`.
