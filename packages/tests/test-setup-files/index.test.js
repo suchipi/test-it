@@ -14,8 +14,7 @@ test("global", async () => {
   );
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "index.test-it.js
-      [32m✓ runs after the test setup file[39m
+    "[32m✓ index.test-it.js runs after the test setup file[39m
 
     [1m[1m[38;2;35;209;139m1 passed[39m[22m[1m, 1 total[22m
     "

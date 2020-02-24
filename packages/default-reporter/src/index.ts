@@ -2,7 +2,7 @@ import chalk from "chalk";
 import util from "util";
 import makeDebug from "debug";
 
-const debug = makeDebug("@test-it/core:reporter.ts");
+const debug = makeDebug("@test-it/default-reporter:index.ts");
 
 const lightRed = "#f14c4c";
 const lightGreen = "#23d18b";
@@ -17,22 +17,20 @@ function indent(str: string, amount: number) {
 }
 
 function printResult(
-  result: jasmine.CustomReporterResult & { kind: "spec" | "suite" },
-  indentLevel: number
+  result: jasmine.CustomReporterResult & { kind: "spec" | "suite" }
 ) {
+  if (result.kind === "suite") return;
+
   let message = "";
   if (result.status === "passed") {
-    if (result.kind === "suite") return;
-    message += chalk.green("✓ " + result.description);
+    message += chalk.green("✓ " + result.fullName);
   } else if (result.status === "failed") {
-    message += chalk.red("✕ " + result.description);
-  } else if (result.kind === "spec") {
-    message += chalk.yellow("○ " + result.description);
+    message += chalk.red("✕ " + result.fullName);
   } else {
-    message += result.description;
+    message += chalk.yellow("○ " + result.fullName);
   }
 
-  console.log(indent(message, indentLevel));
+  console.log(message);
 }
 
 function formatError(message: string, stack: string) {
@@ -109,7 +107,6 @@ class Reporter implements jasmine.CustomReporter {
   results: Array<
     jasmine.CustomReporterResult & { kind: "suite" | "spec" }
   > = [];
-  suiteIndentation: number = 0;
 
   jasmineStarted(suiteInfo: jasmine.SuiteInfo) {
     debug(`reporter.jasmineStarted(${util.inspect(suiteInfo)});`);
@@ -120,19 +117,17 @@ class Reporter implements jasmine.CustomReporter {
   suiteStarted(result: jasmine.CustomReporterResult) {
     debug(`reporter.suiteStarted(${util.inspect(result)});`);
 
-    printResult({ ...result, kind: "suite" }, this.suiteIndentation);
-
-    this.suiteIndentation++;
+    printResult({ ...result, kind: "suite" });
   }
 
   specStarted?(result: jasmine.CustomReporterResult) {
-    debug(`reporter.suiteStarted(${util.inspect(result)});`);
+    debug(`reporter.specStarted(${util.inspect(result)});`);
   }
 
   specDone(result: jasmine.CustomReporterResult) {
     debug(`reporter.specDone(${util.inspect(result)});`);
 
-    printResult({ ...result, kind: "spec" }, this.suiteIndentation);
+    printResult({ ...result, kind: "spec" });
 
     this.results.push({ ...result, kind: "spec" });
   }
@@ -141,17 +136,12 @@ class Reporter implements jasmine.CustomReporter {
     debug(`reporter.suiteDone(${util.inspect(result)});`);
 
     if (result.status === "failed") {
-      printResult(
-        {
-          ...result,
-          description: "error in describe or before/after callback",
-          kind: "spec",
-        },
-        this.suiteIndentation
-      );
+      printResult({
+        ...result,
+        description: "error in describe or before/after callback",
+        kind: "spec",
+      });
     }
-
-    this.suiteIndentation--;
 
     this.results.push({ ...result, kind: "suite" });
   }

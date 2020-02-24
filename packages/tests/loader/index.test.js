@@ -27,9 +27,7 @@ test("loader", async () => {
     LOADER: <root>/node_modules/prop-types/checkPropTypes.js
     LOADER: <root>/node_modules/prop-types/lib/ReactPropTypesSecret.js
     LOADER: <root>/packages/tests/loader/App.jsx
-    loader/index.test-it.js
-      basic
-        [32m✓ JSX works[39m
+    [32m✓ loader/index.test-it.js basic JSX works[39m
 
     [1m[1m[38;2;35;209;139m1 passed[39m[22m[1m, 1 total[22m
     "

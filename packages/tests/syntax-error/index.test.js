@@ -5,8 +5,7 @@ test("syntax error", async () => {
   const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "syntax-error/index.test-it.js
-      [31m✕ error in describe or before/after callback[39m
+    "[31m✕ syntax-error/index.test-it.js[39m
 
     [38;2;241;76;76m[1m● syntax-error/index.test-it.js[22m[39m
 

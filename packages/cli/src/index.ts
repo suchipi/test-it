@@ -32,10 +32,10 @@ async function main() {
       // This window will get closed when we call process.exit.
       await openWindow("about:blank", { show: false });
 
-      const results = await runTests(config);
-      debug(`Results: ${JSON.stringify(results)}`);
+      const result = await runTests(config);
+      debug(`Tests result: ${JSON.stringify(result)}`);
 
-      if (results.overallStatus === "failed") {
+      if (result === "failed") {
         process.exitCode = 1;
       } else {
         process.exitCode = 0;

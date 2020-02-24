@@ -5,11 +5,9 @@ test("basic", async () => {
   const result = await runTestIt([path.join(__dirname, "*.test-it.js")]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "basic/index.test-it.js
-      basic
-        [31m✕ failing test[39m
-        [33m○ pending test[39m
-        [32m✓ succeeding test[39m
+    "[31m✕ basic/index.test-it.js basic failing test[39m
+    [33m○ basic/index.test-it.js basic pending test[39m
+    [32m✓ basic/index.test-it.js basic succeeding test[39m
 
     [38;2;241;76;76m[1m● basic/index.test-it.js basic failing test[22m[39m
 

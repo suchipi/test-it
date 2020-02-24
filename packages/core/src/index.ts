@@ -21,24 +21,35 @@ function openWindow(url: string, options: nw.IWindowOptions) {
   );
 }
 
-export async function runTests(inputConfig: Config): Promise<any> {
+const REAL_JASMINE_DONE = Symbol("REAL_JASMINE_DONE");
+
+export async function runTests(
+  inputConfig: Config
+): Promise<"failed" | "passed"> {
   const config = normalizeConfig(inputConfig);
   debug(`NormalizedConfig: ${util.inspect(config)}`);
 
-  const j = new Jasmine();
-  j.configureDefaultReporter({
-    print: () => {},
-  });
-
-  if (config.seed != null) {
-    j.seed(config.seed);
-  }
-
-  config.reporters.forEach((reporter) => j.addReporter(reporter));
-
   setupMatchers(expect, config);
 
-  const windows = await Bluebird.map(
+  let hasReportedStart = false;
+  let lastRunDetails: null | jasmine.RunDetails = null;
+
+  config.reporters.forEach((reporter) => {
+    const realJasmineStarted = reporter.jasmineStarted || (() => {});
+    reporter.jasmineStarted = (...args) => {
+      if (!hasReportedStart) {
+        realJasmineStarted.call(reporter, ...args);
+        hasReportedStart = true;
+      }
+    };
+
+    reporter[REAL_JASMINE_DONE] = reporter.jasmineDone;
+    reporter.jasmineDone = (runDetails) => {
+      lastRunDetails = runDetails;
+    };
+  });
+
+  const results = await Bluebird.map(
     config.testFiles,
     async (filename) => {
       if (!path.isAbsolute(filename)) {
@@ -46,6 +57,17 @@ export async function runTests(inputConfig: Config): Promise<any> {
       }
 
       debug(`Opening window for '${filename}'`);
+
+      const j = new Jasmine();
+      j.configureDefaultReporter({
+        print: () => {},
+      });
+
+      if (config.seed != null) {
+        j.seed(config.seed);
+      }
+
+      config.reporters.forEach((reporter) => j.addReporter(reporter));
 
       const testWindow = await openWindow("about:blank", { show: false });
 
@@ -90,21 +112,35 @@ export async function runTests(inputConfig: Config): Promise<any> {
         Module._load(filename, delegate, requireCache);
       });
 
-      return testWindow;
+      const results: { overallStatus: string } = await new Promise(
+        (resolve) => {
+          j.onComplete(resolve);
+          j.execute();
+        }
+      );
+
+      testWindow.close(true);
+
+      return results;
     },
     {
       concurrency: os.cpus().length,
     }
   );
 
-  const results: any = await new Promise((resolve) => {
-    j.onComplete(resolve);
-    j.execute();
+  config.reporters.forEach((reporter) => {
+    if (reporter[REAL_JASMINE_DONE]) {
+      reporter[REAL_JASMINE_DONE](lastRunDetails);
+    }
   });
 
   debug(`Run completed`);
 
-  windows.forEach((win) => win.close(true));
+  const overallStatus = results.some(
+    (result) => result.overallStatus === "failed"
+  )
+    ? "failed"
+    : "passed";
 
-  return results;
+  return overallStatus;
 }

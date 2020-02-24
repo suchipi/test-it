@@ -12,9 +12,7 @@ test("snapshot-testing", async () => {
   });
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "snapshots-in-ci/index.test-it.js
-      snapshots-in-ci
-        [31m✕ first test[39m
+    "[31m✕ snapshots-in-ci/index.test-it.js snapshots-in-ci first test[39m
 
     [38;2;241;76;76m[1m● snapshots-in-ci/index.test-it.js snapshots-in-ci first test[22m[39m
 
