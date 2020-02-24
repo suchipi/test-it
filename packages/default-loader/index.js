@@ -13,7 +13,10 @@ module.exports = (filename) => {
     config = require(maybeConfigPath);
   } else {
     config = {
-      presets: ["@babel/preset-env", "@babel/preset-react"],
+      presets: [
+        ["@babel/preset-env", { targets: { node: "current" } }],
+        "@babel/preset-react",
+      ],
       plugins: [
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-proposal-nullish-coalescing-operator",
