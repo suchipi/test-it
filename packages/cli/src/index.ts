@@ -3,6 +3,7 @@ import chalk from "chalk";
 import { runTests } from "@test-it/core";
 import { usage, parseArgvIntoCliConfig, convertCliConfig } from "./config";
 import makeDebug from "debug";
+import watch from "./watch";
 
 const debug = makeDebug("@test-it/cli:index.ts");
 
@@ -17,6 +18,10 @@ async function main() {
     const cliConfig = parseArgvIntoCliConfig(process.argv.slice(2));
     debug(`Parsed CliConfig: ${util.inspect(cliConfig)}`);
 
+    // Open dummy window so that process doesn't exit when last test window is closed.
+    // This window will get closed when we call process.exit.
+    await openWindow("about:blank", { show: false });
+
     if (cliConfig.help) {
       console.error(usage);
     } else if (cliConfig.version) {
@@ -24,21 +29,19 @@ async function main() {
       console.log(
         `@test-it/core: ${require("@test-it/core/package.json").version}`
       );
+    } else if (cliConfig.watch) {
+      await watch(cliConfig);
     } else {
       const config = await convertCliConfig(cliConfig);
       debug(`Parsed Config: ${util.inspect(config)}`);
 
-      // Open dummy window so that process doesn't exit when last test window is closed.
-      // This window will get closed when we call process.exit.
-      await openWindow("about:blank", { show: false });
-
       const result = await runTests(config);
       debug(`Tests result: ${JSON.stringify(result)}`);
 
-      if (result === "failed") {
-        process.exitCode = 1;
-      } else {
+      if (result === "passed") {
         process.exitCode = 0;
+      } else {
+        process.exitCode = 1;
       }
     }
   } catch (err) {
@@ -46,9 +49,10 @@ async function main() {
 
     console.error(chalk.red(err.stack || err));
     process.exitCode = 1;
-  } finally {
-    process.exit();
   }
+
+  debug(`Exiting`);
+  process.exit();
 }
 
 main();

@@ -14,6 +14,7 @@ export type PartialConfig = {
   seed?: number;
   updateSnapshots: "all" | "new" | "none";
   testSetupFiles?: Array<string>;
+  shouldAbort?: () => boolean;
 };
 
 export type NormalizedConfig = {
@@ -24,6 +25,7 @@ export type NormalizedConfig = {
   seed?: number;
   updateSnapshots: "all" | "new" | "none";
   testSetupFiles: Array<string>;
+  shouldAbort: () => boolean;
 };
 
 export function normalizeConfig(config: PartialConfig): NormalizedConfig {
@@ -42,5 +44,6 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
     seed: config.seed,
     updateSnapshots: config.updateSnapshots,
     testSetupFiles: config.testSetupFiles || [],
+    shouldAbort: config.shouldAbort || (() => false),
   };
 }

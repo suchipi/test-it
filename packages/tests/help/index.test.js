@@ -16,6 +16,12 @@ test("help", async () => {
       test-it './tests/**/*.js' '!**/*.snapshot.js'
 
     Options:
+      --watch: Watch files and re-run tests on change.
+
+        Runs the tests repeatedly in an interactive watch mode.
+
+        Example: test-it --watch
+
       --test-setup-files: A comma-separated list of files to run before each test file.
 
         A comma-separated list of paths to modules that run some code to

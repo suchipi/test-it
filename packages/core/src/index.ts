@@ -25,7 +25,7 @@ const REAL_JASMINE_DONE = Symbol("REAL_JASMINE_DONE");
 
 export async function runTests(
   inputConfig: Config
-): Promise<"failed" | "passed"> {
+): Promise<"failed" | "passed" | "canceled"> {
   const config = normalizeConfig(inputConfig);
   debug(`NormalizedConfig: ${util.inspect(config)}`);
 
@@ -52,6 +52,8 @@ export async function runTests(
   const results = await Bluebird.map(
     config.testFiles,
     async (filename) => {
+      if (config.shouldAbort()) return { overallStatus: "canceled" };
+
       if (!path.isAbsolute(filename)) {
         filename = path.join(process.cwd(), filename);
       }
@@ -280,6 +282,8 @@ export async function runTests(
     (result) => result.overallStatus === "failed"
   )
     ? "failed"
+    : results.some((result) => result.overallStatus === "canceled")
+    ? "canceled"
     : "passed";
 
   return overallStatus;

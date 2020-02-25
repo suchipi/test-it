@@ -8,7 +8,7 @@ import makeDebug from "debug";
 
 const debug = makeDebug("@test-it/cli:config.ts");
 
-type CliConfig = {
+export type CliConfig = {
   testFiles: Array<string>; // glob strings
   reporters?: Array<string>;
   loader?: string;
@@ -18,6 +18,7 @@ type CliConfig = {
   resolveExtensions?: Array<string>;
   updateSnapshots: boolean;
   testSetupFiles?: Array<string>;
+  watch?: boolean;
 };
 
 export const usage = [
@@ -31,6 +32,12 @@ export const usage = [
   `  test-it './tests/**/*.js' '!**/*.snapshot.js'`,
   ``,
   `Options:`,
+  `  --watch: Watch files and re-run tests on change.`,
+  ``,
+  `    Runs the tests repeatedly in an interactive watch mode.`,
+  ``,
+  `    Example: test-it --watch`,
+  ``,
   `  --test-setup-files: A comma-separated list of files to run before each test file.`,
   ``,
   `    A comma-separated list of paths to modules that run some code to`,
@@ -117,7 +124,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     string: ["loader", "resolveExtensions", "testSetupFiles"],
     array: ["reporters"],
     number: ["seed"],
-    boolean: ["halp", "varsion", "updateSnapshots", "u"],
+    boolean: ["halp", "varsion", "updateSnapshots", "u", "watch"],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -150,6 +157,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
           )
       : undefined,
     updateSnapshots: Boolean(opts.updateSnapshots || opts.u),
+    watch: opts.watch,
   };
 }
 

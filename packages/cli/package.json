@@ -6,8 +6,11 @@
   "types": "src/index.ts",
   "dependencies": {
     "chalk": "^3.0.0",
+    "chokidar": "^3.3.1",
+    "date-fns": "^2.10.0",
     "debug": "^4.1.1",
     "globby": "^11.0.0",
+    "lodash.debounce": "^4.0.8",
     "make-module-env": "^1.0.1",
     "node-nw": "^0.5.2",
     "nwjs-types": "^1.0.0",
@@ -17,8 +20,9 @@
     "@test-it/core": "^0.5.0"
   },
   "devDependencies": {
-    "typescript": "^3.8.2",
-    "@types/debug": "^4.1.5"
+    "@types/debug": "^4.1.5",
+    "@types/lodash.debounce": "^4.0.6",
+    "typescript": "^3.8.2"
   },
   "scripts": {
     "build": "tsc"
