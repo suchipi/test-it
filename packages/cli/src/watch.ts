@@ -17,6 +17,7 @@ function clearScreen() {
 export default async function watch(cliConfig: CliConfig) {
   let fileFilter: null | RegExp = null;
   let abortRequested = false;
+  let updateSnapshotsOnNextRun = false;
 
   const runTestsPass = async function runTestsPass() {
     debug(`running test pass`);
@@ -29,6 +30,11 @@ export default async function watch(cliConfig: CliConfig) {
       );
       return fileFilter ? fileFilter.test(filename) : true;
     });
+    if (updateSnapshotsOnNextRun) {
+      config.updateSnapshots = "all";
+      updateSnapshotsOnNextRun = false;
+    }
+
     debug(`Parsed Config: ${util.inspect(config)}`);
 
     config.shouldAbort = () => abortRequested;
@@ -83,7 +89,12 @@ export default async function watch(cliConfig: CliConfig) {
 
   const debouncedDoRun = debounce(doRun, 100);
 
-  const watcher = chokidar.watch([".", "!**/node_modules/**", "!**/.git/**"]);
+  const watcher = chokidar.watch([
+    ".",
+    "!**/node_modules/**",
+    "!**/.git/**",
+    "!**/*.snap",
+  ]);
 
   watcher.on("add", (_path) => {
     debug(`watcher: add: ${_path}`);
@@ -182,6 +193,24 @@ export default async function watch(cliConfig: CliConfig) {
             break;
           }
 
+          case "u\n":
+          case "update\n": {
+            const doIt = () => {
+              updateSnapshotsOnNextRun = true;
+              debouncedDoRun();
+            };
+
+            if (currentPass) {
+              abortRequested = true;
+              console.log("Canceling run...");
+              currentPass.then(doIt);
+            } else {
+              doIt();
+            }
+
+            break;
+          }
+
           case "help\n": {
             console.log(`List of commands:\n`);
             console.log(
@@ -198,6 +227,9 @@ export default async function watch(cliConfig: CliConfig) {
             );
             console.log(
               chalk`{bold stop}: Stop the current test run. {dim Shortcut: {bold x}}`
+            );
+            console.log(
+              chalk`{bold update}: Run the tests and update all snapshots. {dim Shortcut: {bold u}}`
             );
             process.stdout.write("\n\n> ");
             break;

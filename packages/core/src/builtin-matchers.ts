@@ -6,6 +6,9 @@ import { diffLinesUnified } from "jest-diff";
 import chaiJestSnapshot from "chai-jest-snapshot";
 import SnapshotReporter from "./snapshot-reporter";
 import { NormalizedConfig } from "./config";
+import makeDebug from "debug";
+
+const debug = makeDebug("@test-it/core:commonjs-delegate.ts");
 
 chai.use(chaiJestSnapshot);
 
@@ -47,9 +50,19 @@ export const setupMatchers = (expect: any, config: NormalizedConfig) => {
 
       let exists = false;
       try {
+        debug(
+          `Checking for snapshot '${snapshotName}' in '${snapshotFilename}'`
+        );
+        delete require.cache[require.resolve(snapshotFilename)];
         const snapshotContent = require(snapshotFilename);
         exists = snapshotContent[snapshotName] != null;
       } catch (err) {}
+
+      if (config.updateSnapshots === "none" && exists === false) {
+        throw new Error(
+          `Tried to write to a new snapshot in CI: '${snapshotFilename}'. Did you forget to commit your snapshots?`
+        );
+      }
 
       let shouldUpdate = false;
       switch (config.updateSnapshots) {
@@ -57,12 +70,8 @@ export const setupMatchers = (expect: any, config: NormalizedConfig) => {
           shouldUpdate = true;
           break;
         }
-        case "new": {
+        default: {
           shouldUpdate = !exists;
-          break;
-        }
-        case "none": {
-          shouldUpdate = false;
           break;
         }
       }
@@ -75,6 +84,7 @@ export const setupMatchers = (expect: any, config: NormalizedConfig) => {
       } catch (err) {
         let expected = "";
         try {
+          delete require.cache[require.resolve(snapshotFilename)];
           expected = require(snapshotFilename)[snapshotName].trim();
         } catch (err) {}
         const actual = serializeLikeSnapshot(received).trim();
