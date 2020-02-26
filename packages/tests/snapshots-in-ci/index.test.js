@@ -16,15 +16,11 @@ test("snapshot-testing", async () => {
 
     [38;2;241;76;76m[1m● snapshots-in-ci/index.test-it.js snapshots-in-ci first test[22m[39m
 
-      Error: [1m[31mexpected value to match snapshot snapshots-in-ci first test[39m[22m
-      
-      [32m- Snapshot[39m
-      [31m+ Received[39m
-      
-      [31m+ Object {[39m
-      [31m+   \\"number\\": \\"one\\",[39m
-      [31m+ }[39m
-      error properties: Object({ matcherResult: Object({ message: Function, pass: false }) })
+      Error: Tried to write to a new snapshot in CI: '/Users/lily/Code/test-it/packages/tests/snapshots-in-ci/index.test-it.js.snap'. Did you forget to commit your snapshots?
+      Error: Tried to write to a new snapshot in CI: '/Users/lily/Code/test-it/packages/tests/snapshots-in-ci/index.test-it.js.snap'. Did you forget to commit your snapshots?
+          at Object.toMatchSnapshot ([34m/Users/lily/Code/test-it/packages/core/dist/builtin-matchers.js:46:23[39m)
+          at __EXTERNAL_MATCHER_TRAP__ ([34m/Users/lily/Code/test-it/node_modules/expect/build/index.js:380:30[39m)
+          at Object.throwingMatcher [as toMatchSnapshot] ([34m/Users/lily/Code/test-it/node_modules/expect/build/index.js:381:15[39m)
           at <Jasmine>
           at processImmediate ([34minternal/timers.js:456:21[39m)
 
