@@ -1,3 +1,4 @@
+import os from "os";
 import path from "path";
 import util from "util";
 import Bluebird from "bluebird";
@@ -273,9 +274,7 @@ export async function runTests(
       return results;
     },
     {
-      // TODO: the snapshot reporter messes stuff up when we run tests concurrently.
-      // We need to switch to a more robust system, like jest's snapshot state.
-      concurrency: 1,
+      concurrency: os.cpus().length,
     }
   );
 
