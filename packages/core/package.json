@@ -10,21 +10,18 @@
     "@test-it/default-reporter": "^0.5.0",
     "bluebird": "^3.7.2",
     "builtins": "^3.0.0",
-    "chai": "^4.2.0",
-    "chai-jest-snapshot": "^2.0.0",
     "chalk": "^3.0.0",
     "commonjs-standalone": "^0.1.2",
     "debug": "^4.1.1",
     "expect": "^25.1.0",
     "jest-diff": "^25.1.0",
+    "jest-snapshot": "^25.1.0",
     "nwjs-types": "^1.0.0",
-    "pretty-format": "^25.1.0",
     "regenerator-runtime": "^0.13.3",
     "resolve": "^1.15.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.29",
-    "@types/chai": "^4.2.9",
     "@types/debug": "^4.1.5",
     "@types/jasmine": "^3.5.6",
     "typescript": "^3.8.2"

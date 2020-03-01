@@ -1,6 +1,5 @@
 import util from "util";
 import DefaultReporter from "@test-it/default-reporter";
-import SnapshotReporter from "./snapshot-reporter";
 import defaultLoader from "@test-it/default-loader";
 import makeDebug from "debug";
 
@@ -32,10 +31,10 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
   debug(`Parsing PartialConfig: ${util.inspect(config)}`);
   return {
     testFiles: config.testFiles,
-    reporters: (config.reporters && config.reporters.length > 0
-      ? config.reporters
-      : [new DefaultReporter()]
-    ).concat(new SnapshotReporter()),
+    reporters:
+      config.reporters && config.reporters.length > 0
+        ? config.reporters
+        : [new DefaultReporter()],
     loader: config.loader || defaultLoader,
     resolveExtensions:
       config.resolveExtensions && config.resolveExtensions.length > 0

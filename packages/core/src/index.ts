@@ -1,14 +1,14 @@
 import path from "path";
 import util from "util";
 import Bluebird from "bluebird";
-import expect from "expect";
 import Jasmine from "@suchipi/jasmine-mini";
+import { SnapshotState } from "jest-snapshot";
 import { PartialConfig, normalizeConfig } from "./config";
 import { Module } from "commonjs-standalone";
 import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
 import regeneratorRuntime from "regenerator-runtime";
-import { setupMatchers } from "./builtin-matchers";
+import makeExpect from "./make-expect";
 
 const debug = makeDebug("@test-it/core:index.ts");
 
@@ -27,8 +27,6 @@ export async function runTests(
 ): Promise<"failed" | "passed" | "canceled"> {
   const config = normalizeConfig(inputConfig);
   debug(`NormalizedConfig: ${util.inspect(config)}`);
-
-  setupMatchers(expect, config);
 
   let hasReportedStart = false;
   let lastRunDetails: null | jasmine.RunDetails = null;
@@ -144,6 +142,16 @@ export async function runTests(
       const testInterface = j.getInterface();
       Object.assign(win, testInterface);
 
+      const snapshotState = new SnapshotState(filename + ".snap", {
+        updateSnapshot: config.updateSnapshots,
+
+        // These are just stubs, but we'll need to make them real
+        // if we ever add support for inline snapshots.
+        getPrettier: () => null,
+        getBabelTraverse: () => () => {},
+      });
+
+      const expect = makeExpect(filename, j, snapshotState);
       win.expect = expect;
 
       // jest compat

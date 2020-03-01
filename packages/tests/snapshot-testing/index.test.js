@@ -21,7 +21,7 @@ test("snapshot-testing", async () => {
 
     [38;2;241;76;76m[1m● index.test-it.js snapshot-testing first test[22m[39m
 
-      Error: [1m[31mexpected value to match snapshot snapshot-testing first test[39m[22m
+      Error: [1m[31mExpected value to match snapshot: 'snapshot-testing first test 1'[39m[22m
       
       [32m- Snapshot[39m
       [31m+ Received[39m
