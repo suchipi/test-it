@@ -136,6 +136,9 @@ export async function runTests(
 
           return Buffer.from(base64, "base64");
         },
+        resizeWindow(width: number, height: number) {
+          testWindow.resizeTo(width, height);
+        },
       };
 
       const testInterface = j.getInterface();
@@ -150,7 +153,7 @@ export async function runTests(
         getBabelTraverse: () => () => {},
       });
 
-      const expect = makeExpect(filename, j, snapshotState);
+      const expect = makeExpect(filename, j, snapshotState, config);
       win.expect = expect;
 
       // jest compat

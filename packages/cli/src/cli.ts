@@ -21,17 +21,28 @@ if (typeof nodeNwPkg.bin === "string") {
 
 debug(`Using node-nw bin at '${nodeNwBin}'`);
 
+const mappedArgs = process.argv
+  .slice(2)
+  // Hack: node-nw swallows the `--help` arg, so we need to change it to something else.
+  .map((arg) => (arg === "--help" ? "--halp" : arg))
+  // Hack: node-nw swallows the `--version` arg, so we need to change it to something else.
+  .map((arg) => (arg === "--version" ? "--varsion" : arg));
+
 const child = child_process.spawn(
   "node",
   [
     nodeNwBin,
     path.join(__dirname, "index.js"),
-    ...process.argv
-      .slice(2)
-      // Hack: node-nw swallows the `--help` arg, so we need to change it to something else.
-      .map((arg) => (arg === "--help" ? "--halp" : arg))
-      // Hack: node-nw swallows the `--version` arg, so we need to change it to something else.
-      .map((arg) => (arg === "--version" ? "--varsion" : arg)),
+    ...mappedArgs,
+
+    // Default DPI settings so image snapshots are consistent across devices
+    // (these flags get forwarded to chrome). But, allow the user to override them
+    ...(mappedArgs.some((arg) => arg.match(/--high-dpi-support/))
+      ? []
+      : ["--high-dpi-support=1"]),
+    ...(mappedArgs.some((arg) => arg.match(/--force-device-scale-factor/))
+      ? []
+      : ["--force-device-scale-factor=1"]),
   ],
   {
     cwd: process.cwd(),
