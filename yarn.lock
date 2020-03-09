@@ -1417,6 +1417,18 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
   integrity sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
 
+"@types/mkdirp@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-1.0.0.tgz#16ce0eabe4a9a3afe64557ad0ee6886ec3d32927"
+  integrity sha512-ONFY9//bCEr3DWKON3iDv/Q8LXnhaYYaNDeFSN0AtO5o4sLf9F0pstJKKKjQhXE0kJEeHs8eR6SAsROhhc2Csw==
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*":
+  version "13.9.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.0.tgz#5b6ee7a77faacddd7de719017d0bc12f52f81589"
+  integrity sha512-0ARSQootUG1RljH2HncpsY2TJBfGQIKOOi7kxzUY6z54ePu/ZD+wJA8zI2Q6v8rol2qpG/rvqsReco8zNMPvhQ==
+
 "@types/node@^11.11.3":
   version "11.15.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.15.7.tgz#97559c6d7f8b15dcf275365512799f405c20cd4e"
@@ -1426,6 +1438,20 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
+
+"@types/pixelmatch@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/pixelmatch/-/pixelmatch-5.0.0.tgz#3b9222a3116946bbb10ba28c6eab4df4acb93bef"
+  integrity sha512-hx+RYj4KeVrz3VoD/6NaAXqNolMHfKEbPFYdkZhE6dUQXMdNpAMF4tmtoKfs+3T217jnc5KDoWhqEI/u/yPprg==
+  dependencies:
+    "@types/node" "*"
+
+"@types/pngjs@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@types/pngjs/-/pngjs-3.4.1.tgz#2da41c25e4eb4c4e4c703cb306f7561311ac3a0c"
+  integrity sha512-cMBddD0y1zHkyT2nHNvQh1VQZyAnQc+i2I3GhY74CMyCEbGBfQ2fmDUuIwcsw6saVj4EdoJ/PAXZYOXRO368MA==
+  dependencies:
+    "@types/node" "*"
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -4099,6 +4125,13 @@ pirates@^4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
+pixelmatch@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/pixelmatch/-/pixelmatch-5.1.0.tgz#b640f0e5a03a09f235a4b818ef3b9b98d9d0b911"
+  integrity sha512-HqtgvuWN12tBzKJf7jYsc38Ha28Q2NYpmBL9WostEGgDHJqbTLkjydZXL1ZHM02ZnB+Dkwlxo87HBY38kMiD6A==
+  dependencies:
+    pngjs "^3.4.0"
+
 pkg-dir@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"
@@ -4110,6 +4143,11 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
+
+pngjs@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
+  integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
