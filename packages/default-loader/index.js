@@ -2,26 +2,16 @@ const fs = require("fs");
 const path = require("path");
 const babel = require("@babel/core");
 const mime = require("mime-types");
+const kameDefaultLoader = require("kame/dist/default-loader").default;
 
 module.exports = function defaultLoader(filename) {
   const extension = path.extname(filename);
 
   switch (extension) {
-    case ".json": {
-      return "module.exports = " + fs.readFileSync(filename);
-    }
-    case ".node": {
-      return require(filename);
-    }
-    case ".css": {
-      const content = fs.readFileSync(filename, "utf-8");
-      return `
-				const style = document.createElement("style");
-				style.type = "text/css";
-				style.textContent = ${JSON.stringify(content)};
-				document.head.appendChild(style);
-			`;
-    }
+    // Override kame's default loader for js files,
+    // because the default loader uses all babel transforms, and
+    // we only want the ones necessary for the current node version
+    // (which is node-nw).
     case ".js":
     case ".jsx":
     case ".mjs":
@@ -54,11 +44,9 @@ module.exports = function defaultLoader(filename) {
       return result.code;
     }
 
+    // But defer to kame for all other filetypes.
     default: {
-      const type = mime.lookup(extension) || "application/octet-stream";
-      const base64 = fs.readFileSync(filename, "base64");
-      const url = `data:${type};base64,${base64}`;
-      return `module.exports = ${JSON.stringify(url)}`;
+      return kameDefaultLoader(filename);
     }
   }
 };

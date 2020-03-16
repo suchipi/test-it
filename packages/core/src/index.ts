@@ -4,10 +4,9 @@ import Bluebird from "bluebird";
 import Jasmine from "@suchipi/jasmine-mini";
 import { SnapshotState } from "jest-snapshot";
 import { PartialConfig, normalizeConfig } from "./config";
-import { Module } from "commonjs-standalone";
-import { makeDelegate } from "./commonjs-delegate";
 import makeDebug from "debug";
 import regeneratorRuntime from "regenerator-runtime";
+import { configure as configureKame } from "kame";
 import makeExpect from "./make-expect";
 
 const debug = makeDebug("@test-it/core:index.ts");
@@ -246,19 +245,26 @@ export async function runTests(
         }
       };
 
-      const delegate = makeDelegate(config, win);
-      const requireCache = {};
+      const kame = configureKame({
+        loader: config.loader,
+        resolver: config.resolver,
+        runtimeEval: (code, filepath) => {
+          return win.eval(code + `\n//# sourceURL=${filepath}\n`);
+        },
+      });
+
+      const runtime = new kame.Runtime();
 
       testInterface.describe(relativeFilename, () => {
         debug(
           `Running test setup files: ${util.inspect(config.testSetupFiles)}`
         );
         config.testSetupFiles.forEach((testSetupFile) => {
-          Module._load(testSetupFile, delegate, requireCache);
+          runtime.load(testSetupFile);
         });
 
         debug(`Running test code: '${filename}'`);
-        Module._load(filename, delegate, requireCache);
+        runtime.load(filename);
       });
 
       const results: { overallStatus: string } = await new Promise(
@@ -273,8 +279,7 @@ export async function runTests(
       return results;
     },
     {
-      // TODO: the snapshot reporter messes stuff up when we run tests concurrently.
-      // We need to switch to a more robust system, like jest's snapshot state.
+      // TODO: the snapshots mess up when we run tests concurrently.
       concurrency: 1,
     }
   );

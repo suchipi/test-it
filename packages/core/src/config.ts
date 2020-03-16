@@ -8,8 +8,8 @@ const debug = makeDebug("@test-it/core:config.ts");
 export type PartialConfig = {
   testFiles: Array<string>;
   reporters?: Array<jasmine.CustomReporter>;
-  loader?: (filename: string) => string;
-  resolveExtensions?: Array<string>;
+  loader?: string | ((filename: string) => string);
+  resolver?: string | ((id: string, fromFilePath: string) => string);
   seed?: number;
   updateSnapshots: "all" | "new" | "none";
   testSetupFiles?: Array<string>;
@@ -19,8 +19,8 @@ export type PartialConfig = {
 export type NormalizedConfig = {
   testFiles: Array<string>;
   reporters: Array<jasmine.CustomReporter>;
-  loader: (filename: string) => string;
-  resolveExtensions: Array<string>;
+  loader?: string | ((filename: string) => string);
+  resolver?: string | ((id: string, fromFilePath: string) => string);
   seed?: number;
   updateSnapshots: "all" | "new" | "none";
   testSetupFiles: Array<string>;
@@ -35,11 +35,8 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
       config.reporters && config.reporters.length > 0
         ? config.reporters
         : [new DefaultReporter()],
-    loader: config.loader || defaultLoader,
-    resolveExtensions:
-      config.resolveExtensions && config.resolveExtensions.length > 0
-        ? config.resolveExtensions
-        : [".js", ".json", ".mjs", ".jsx", ".ts", ".tsx", ".node"],
+    loader: config.loader ?? defaultLoader,
+    resolver: config.resolver,
     seed: config.seed,
     updateSnapshots: config.updateSnapshots,
     testSetupFiles: config.testSetupFiles || [],

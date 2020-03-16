@@ -2,11 +2,16 @@ const path = require("path");
 const runTestIt = require("../run-test-it");
 
 test("loader", async () => {
-  const result = await runTestIt([
-    "--loader",
-    path.join(__dirname, "loader.js"),
-    path.join(__dirname, "*.test-it.js"),
-  ]);
+  const result = await runTestIt(
+    [
+      "--loader",
+      path.join(__dirname, "loader.js"),
+      path.join(__dirname, "*.test-it.js"),
+    ],
+    {
+      env: Object.assign({}, process.env, { NODE_ENV: "development" }),
+    }
+  );
 
   const rootDir = path.join(__dirname, "..", "..", "..");
   const stdoutWithoutRootDir = result.stdout
@@ -18,9 +23,6 @@ test("loader", async () => {
 
   expect(stdoutWithoutRootDir).toMatchInlineSnapshot(`
     "LOADER: <root>/packages/tests/loader/index.test-it.js
-    LOADER: <root>/node_modules/@babel/runtime/helpers/interopRequireWildcard.js
-    LOADER: <root>/node_modules/@babel/runtime/helpers/typeof.js
-    LOADER: <root>/node_modules/@babel/runtime/helpers/interopRequireDefault.js
     LOADER: <root>/node_modules/react/index.js
     LOADER: <root>/node_modules/react/cjs/react.development.js
     LOADER: <root>/node_modules/object-assign/index.js
