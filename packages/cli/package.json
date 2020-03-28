@@ -1,6 +1,6 @@
 {
   "name": "@test-it/cli",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -17,7 +17,7 @@
     "yargs-parser": "^17.0.0"
   },
   "peerDependencies": {
-    "@test-it/core": "^0.6.1"
+    "@test-it/core": "^0.6.2"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
