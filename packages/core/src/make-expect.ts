@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
-import chalk from "chalk";
+import util from "util";
 import mkdirp from "mkdirp";
+import chalk from "chalk";
+import isBuffer from "is-buffer";
 import { diffLinesUnified } from "jest-diff";
 import { SnapshotStateType } from "jest-snapshot";
 import pixelmatch from "pixelmatch";
@@ -73,6 +75,14 @@ const makeExpect = (
     },
 
     toMatchImageSnapshot(received: Buffer) {
+      if (!isBuffer(received)) {
+        throw new Error(
+          `toMatchImageSnapshot must be used with a buffer of png data, but instead, it was used with: ${util.inspect(
+            received
+          )}`
+        );
+      }
+
       const testName = testNameReporter.getCurrentTestName();
       const testFileSnapshotFolder = path.join(
         path.dirname(filename),

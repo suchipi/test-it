@@ -1,6 +1,6 @@
 {
   "name": "@test-it/core",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -12,6 +12,7 @@
     "chalk": "^3.0.0",
     "debug": "^4.1.1",
     "expect": "^25.1.0",
+    "is-buffer": "^2.0.4",
     "jest-diff": "^25.1.0",
     "jest-snapshot": "^25.1.0",
     "kame": "^0.4.1",

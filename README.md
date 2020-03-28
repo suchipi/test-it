@@ -78,7 +78,7 @@ npm run test-it
 
 ### TypeScript
 
-If you use TypeScript, you can add `"./node_modules/@test-it/core/globals.d.ts"` to your `tsconfig.json`'s `include` array to get types for the following globals (which are provided by Test-It):
+If you use TypeScript, you can add `"./node_modules/@test-it/core/globals.d.ts"` to your `tsconfig.json`'s `files` array to get types for the following globals (which are provided by Test-It):
 
 - `expect`
 - `describe`

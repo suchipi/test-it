@@ -6,7 +6,7 @@ interface Constructable {
 }
 
 declare namespace TestItExpect {
-  export interface Matchers<R> {
+  interface Matchers<R> {
     /**
      * Ensures the last call to a mock function was provided specific args.
      */

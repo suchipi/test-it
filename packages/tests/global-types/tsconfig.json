@@ -1,0 +1,4 @@
+{
+  "files": ["../../../node_modules/@test-it/core/globals.d.ts"],
+  "include": ["./**/*.ts"]
+}
