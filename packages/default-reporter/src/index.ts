@@ -120,7 +120,7 @@ class Reporter implements jasmine.CustomReporter {
     printResult({ ...result, kind: "suite" });
   }
 
-  specStarted?(result: jasmine.CustomReporterResult) {
+  specStarted(result: jasmine.CustomReporterResult) {
     debug(`reporter.specStarted(${util.inspect(result)});`);
   }
 

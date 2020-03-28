@@ -66,6 +66,12 @@ const makeExpect = (
       }
     },
 
+    toMatchInlineSnapshot() {
+      throw new Error(
+        "Sorry, inline snapshots are not yet supported. Use `toMatchSnapshot` instead."
+      );
+    },
+
     toMatchImageSnapshot(received: Buffer) {
       const testName = testNameReporter.getCurrentTestName();
       const testFileSnapshotFolder = path.join(

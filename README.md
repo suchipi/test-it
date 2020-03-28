@@ -76,6 +76,27 @@ Then, run Test-It using npm:
 npm run test-it
 ```
 
+### TypeScript
+
+If you use TypeScript, you can add `"./node_modules/@test-it/core/globals.d.ts"` to your `tsconfig.json`'s `include` array to get types for the following globals (which are provided by Test-It):
+
+- `expect`
+- `describe`
+- `fdescribe`
+- `xdescribe`
+- `test`
+- `it`
+- `debug`
+- `fit`
+- `xit`
+- `beforeEach`
+- `beforeAll`
+- `before`
+- `afterEach`
+- `afterAll`
+- `after`
+- `TestIt`
+
 ## Usage
 
 By default, Test-It will run against any test files named like `*.test.js`.

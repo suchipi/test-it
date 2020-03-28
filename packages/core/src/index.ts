@@ -172,19 +172,57 @@ export async function runTests(
       const sleep = (ms: number) =>
         new Promise((resolve) => setTimeout(resolve, ms));
 
-      win.debug = (name: string, cb: Function) => {
-        if (cb.length === 1) {
-          win.it(
-            name,
-            async (done: Function) => {
-              testWindow.show(true);
-              testWindow.showDevTools(undefined, async () => {
+      const makeDebug = (itFunc: Function) => {
+        return function debug(name: string, cb: Function) {
+          if (cb.length === 1) {
+            itFunc(
+              name,
+              async (done: Function) => {
+                testWindow.show(true);
+                testWindow.showDevTools(undefined, async () => {
+                  // Racing the amount of time it takes devtools to connect...
+                  await sleep(1500);
+
+                  win.eval(
+                    [
+                      `(function debug(testCode /* ${name} */, done) {`,
+                      `  // Your test code hasn't run yet. `,
+                      `  // To run it, either:`,
+                      `  //`,
+                      `  // - Press the blue 'Resume script execution' button in the right pane,`,
+                      `  // OR`,
+                      `  // - Press the gray 'Step into next function call' button twice.`,
+                      `  //`,
+                      `  // When you're done debugging, close the browser window to resume your tests.`,
+                      `  debugger;`,
+                      `  testCode(done);`,
+                      `})`,
+                    ].join("\n")
+                  )(cb, () => {
+                    // `done` is a no-op when debugging. Close the browser window to end the test.
+                  });
+
+                  testWindow.on("close", () => done());
+                });
+              },
+              // Set the jasmine async timeout for this test to a really big number.
+              2147483647 // If we pass a larger number, it gets coerced to 1
+            );
+          } else {
+            itFunc(
+              name,
+              async () => {
+                testWindow.show(true);
+                await new Promise((resolve) => {
+                  testWindow.showDevTools(undefined, resolve);
+                });
+
                 // Racing the amount of time it takes devtools to connect...
                 await sleep(1500);
 
-                win.eval(
+                const result = win.eval(
                   [
-                    `(function debug(testCode /* ${name} */, done) {`,
+                    `(function debug(testCode /* ${name} */) {`,
                     `  // Your test code hasn't run yet. `,
                     `  // To run it, either:`,
                     `  //`,
@@ -194,59 +232,27 @@ export async function runTests(
                     `  //`,
                     `  // When you're done debugging, close the browser window to resume your tests.`,
                     `  debugger;`,
-                    `  testCode(done);`,
+                    `  testCode();`,
                     `})`,
                   ].join("\n")
-                )(cb, () => {
-                  // `done` is a no-op when debugging. Close the browser window to end the test.
+                )(cb);
+
+                await result;
+
+                await new Promise((resolve) => {
+                  testWindow.on("close", resolve);
                 });
-
-                testWindow.on("close", () => done());
-              });
-            },
-            // Set the jasmine async timeout for this test to a really big number.
-            2147483647 // If we pass a larger number, it gets coerced to 1
-          );
-        } else {
-          win.it(
-            name,
-            async () => {
-              testWindow.show(true);
-              await new Promise((resolve) => {
-                testWindow.showDevTools(undefined, resolve);
-              });
-
-              // Racing the amount of time it takes devtools to connect...
-              await sleep(1500);
-
-              const result = win.eval(
-                [
-                  `(function debug(testCode /* ${name} */) {`,
-                  `  // Your test code hasn't run yet. `,
-                  `  // To run it, either:`,
-                  `  //`,
-                  `  // - Press the blue 'Resume script execution' button in the right pane,`,
-                  `  // OR`,
-                  `  // - Press the gray 'Step into next function call' button twice.`,
-                  `  //`,
-                  `  // When you're done debugging, close the browser window to resume your tests.`,
-                  `  debugger;`,
-                  `  testCode();`,
-                  `})`,
-                ].join("\n")
-              )(cb);
-
-              await result;
-
-              await new Promise((resolve) => {
-                testWindow.on("close", resolve);
-              });
-            },
-            // Set the jasmine async timeout for this test to a really big number.
-            2147483647 // If we pass a larger number, it gets coerced to 1
-          );
-        }
+              },
+              // Set the jasmine async timeout for this test to a really big number.
+              2147483647 // If we pass a larger number, it gets coerced to 1
+            );
+          }
+        };
       };
+
+      win.debug = makeDebug(win.it);
+      win.debug.skip = makeDebug(win.xit);
+      win.debug.only = makeDebug(win.fit);
 
       const kame = configureKame({
         loader: config.loader,

@@ -132,7 +132,14 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     string: ["loader", "resolver", "testSetupFiles"],
     array: ["reporters"],
     number: ["seed"],
-    boolean: ["halp", "varsion", "updateSnapshots", "u", "watch"],
+    boolean: [
+      "halp",
+      "varsion",
+      "updateSnapshots",
+      "updateSnapshot",
+      "u",
+      "watch",
+    ],
   });
 
   debug(`Yargs result: ${util.inspect(opts)}`);
@@ -160,7 +167,9 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
               : filepath
           )
       : undefined,
-    updateSnapshots: Boolean(opts.updateSnapshots || opts.u),
+    updateSnapshots: Boolean(
+      opts.updateSnapshots || opts.u || opts.updateSnapshot
+    ),
     watch: opts.watch,
   };
 }
