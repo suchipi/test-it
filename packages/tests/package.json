@@ -14,7 +14,7 @@
     "shelljs": "^0.8.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "jest": {
     "testTimeout": 20000
