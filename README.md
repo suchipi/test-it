@@ -10,6 +10,7 @@ Test-It is a test framework that combines the best of node and the browser.
 - Use `debug` instead of `it` to open your test in a browser and debug with Chrome DevTools
 - Support for snapshot testing via `expect(value).toMatchSnapshot()`
 - Use `await TestIt.captureScreenshot()` to capture a screenshot of the page (returns a `Buffer` of PNG data)
+- Built-in Visual Regression Testing via `expect(pngBuffer).toMatchImageSnapshot()`
 
 ## The Problem
 
