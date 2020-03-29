@@ -3495,10 +3495,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-kame@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/kame/-/kame-0.4.1.tgz#a40d57a4635fcb322ca132b498e84e3c6620131d"
-  integrity sha512-iiSCfqiIcoaD149Ct6I9SyXnLI2NLkbs2D6XjiKK+jdWHiKI3cArLYQEIZGsmaR4k2w6yfs42F3Y7z5LDrbtAg==
+kame@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/kame/-/kame-0.5.0.tgz#77e09437d40f6442a9dc831e3902de2e4eb9550f"
+  integrity sha512-w+AkEQ8MMjWr9WvS1tBOEOCHXyP8ifclL+5Q553AXf5Xz+zKsyYlPFAefZr3cwtFVL1XtTITRjSonOT/2e/RMA==
   dependencies:
     uid "^1.0.0"
     "@babel/code-frame" "^7.8.3"
