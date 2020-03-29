@@ -18,7 +18,19 @@ module.exports = function defaultLoader(filename) {
     case ".ts":
     case ".tsx": {
       if (filename.match(/node_modules/)) {
-        return fs.readFileSync(filename, "utf-8");
+        const code = fs.readFileSync(filename, "utf-8");
+        if (code.match(/import/)) {
+          return (
+            babel.transformSync(code, {
+              filename,
+              babelrc: false,
+              plugins: ["@babel/plugin-transform-modules-commonjs"],
+              compact: code.length > 500 * 1024,
+            }).code || code
+          );
+        } else {
+          return code;
+        }
       }
 
       const config = {
