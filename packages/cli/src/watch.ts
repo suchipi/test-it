@@ -94,6 +94,7 @@ export default async function watch(cliConfig: CliConfig) {
     "!**/node_modules/**",
     "!**/.git/**",
     "!**/*.snap",
+    "!**/*.png",
   ]);
 
   watcher.on("add", (_path) => {
