@@ -11,6 +11,21 @@ import { PNG } from "pngjs";
 import TestNameReporter from "./test-name-reporter";
 import { NormalizedConfig } from "./config";
 
+type RGBTuple = [number, number, number];
+
+interface PixelMatchOptions {
+  /** Matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. */
+  readonly threshold?: number;
+  /** If true, disables detecting and ignoring anti-aliased pixels. false by default. */
+  readonly includeAA?: boolean;
+  /* Blending factor of unchanged pixels in the diff output. Ranges from 0 for pure white to 1 for original brightness. 0.1 by default. */
+  alpha?: number;
+  /* The color of anti-aliased pixels in the diff output. [255, 255, 0] by default. */
+  aaColor?: RGBTuple;
+  /* The color of differing pixels in the diff output. [255, 0, 0] by default. */
+  diffColor?: RGBTuple;
+}
+
 const makeExpect = (
   filename: string,
   j: typeof import("@suchipi/jasmine-mini").default,
@@ -74,7 +89,10 @@ const makeExpect = (
       );
     },
 
-    toMatchImageSnapshot(received: Buffer) {
+    toMatchImageSnapshot(
+      received: Buffer,
+      pixelMatchOptions?: PixelMatchOptions
+    ) {
       if (!isBuffer(received)) {
         throw new Error(
           `toMatchImageSnapshot must be used with a buffer of png data, but instead, it was used with: ${util.inspect(
@@ -151,7 +169,8 @@ const makeExpect = (
               actualPng.data,
               diff.data,
               width,
-              height
+              height,
+              pixelMatchOptions
             );
           } catch (err) {
             matchError = err;
