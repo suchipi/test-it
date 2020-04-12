@@ -250,7 +250,7 @@ declare namespace TestItExpect {
 type RGBTuple = [number, number, number];
 
 interface MatchImageSnapshotOptions {
-  /** Matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. */
+  /** Per-pixel color matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. */
   readonly threshold?: number;
   /** If true, disables detecting and ignoring anti-aliased pixels. false by default. */
   readonly includeAA?: boolean;
@@ -260,7 +260,7 @@ interface MatchImageSnapshotOptions {
   aaColor?: RGBTuple;
   /** The color of differing pixels in the diff output. [255, 0, 0] by default. */
   diffColor?: RGBTuple;
-  /** The maximum number of allowed differing pixels before the snapshot is considered non-matching. */
+  /** The maximum number of allowed differing pixels before the snapshot is considered non-matching. A value of 0 means all pixels must match. Defaults to 0. */
   maxDifferentPixels?: number;
 }
 
