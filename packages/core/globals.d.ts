@@ -243,23 +243,25 @@ declare namespace TestItExpect {
      * expect(await TestIt.captureScreenshot({ fullsize: false })).toMatchImageSnapshot();
      * ```
      */
-    toMatchImageSnapshot(pixelMatchOptions?: PixelMatchOptions): R;
+    toMatchImageSnapshot(options?: MatchImageSnapshotOptions): R;
   }
 }
 
 type RGBTuple = [number, number, number];
 
-interface PixelMatchOptions {
+interface MatchImageSnapshotOptions {
   /** Matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. */
   readonly threshold?: number;
   /** If true, disables detecting and ignoring anti-aliased pixels. false by default. */
   readonly includeAA?: boolean;
-  /* Blending factor of unchanged pixels in the diff output. Ranges from 0 for pure white to 1 for original brightness. 0.1 by default. */
+  /** Blending factor of unchanged pixels in the diff output. Ranges from 0 for pure white to 1 for original brightness. 0.1 by default. */
   alpha?: number;
-  /* The color of anti-aliased pixels in the diff output. [255, 255, 0] by default. */
+  /** The color of anti-aliased pixels in the diff output. [255, 255, 0] by default. */
   aaColor?: RGBTuple;
-  /* The color of differing pixels in the diff output. [255, 0, 0] by default. */
+  /** The color of differing pixels in the diff output. [255, 0, 0] by default. */
   diffColor?: RGBTuple;
+  /** The maximum number of allowed differing pixels before the snapshot is considered non-matching. */
+  maxDifferentPixels?: number;
 }
 
 type Expect = {
