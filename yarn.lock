@@ -2486,12 +2486,12 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-first-base@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/first-base/-/first-base-0.1.2.tgz#f2044427669aee2181316043e426940d3005ec4f"
-  integrity sha512-iDLRMgVtKDdnhr26vklUcEuSzKHe1b5/wEjEiYvjTC3rVEMWw1suXVHsUOEoDfN/NSf/BHqeJPO2OHuvsUg2Yw==
+first-base@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/first-base/-/first-base-0.1.3.tgz#ab08603bf05440e6e3e0740be7d723678c2b0cbd"
+  integrity sha512-B9brsiB+JRNKMcEc8omlhpGCffM27BSGS2DWGl4Hq+hy+GKGLDaVCkNv41KsucZUKXlHRmFGwB7E4ZNf7gxuPA==
   dependencies:
-    node-pty "^0.8.0"
+    node-pty "^0.9.0"
     strip-ansi "^5.0.0"
 
 for-in@^1.0.2:
@@ -3756,10 +3756,10 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-nan@2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
-  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
+nan@^2.14.0:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -3826,12 +3826,12 @@ node-nw@^0.5.2:
     "@nwjs-binaries/osx-x64" "0.44.2-sdk"
     "@nwjs-binaries/win-x64" "0.44.2-sdk"
 
-node-pty@^0.8.0:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.8.1.tgz#94b457bec013e7a09b8d9141f63b0787fa25c23f"
-  integrity sha512-j+/g0Q5dR+vkELclpJpz32HcS3O/3EdPSGPvDXJZVJQLCvgG0toEbfmymxAEyQyZEpaoKHAcoL+PvKM+4N9nlw==
+node-pty@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/node-pty/-/node-pty-0.9.0.tgz#8f9bcc0d1c5b970a3184ffd533d862c7eb6590a6"
+  integrity sha512-MBnCQl83FTYOu7B4xWw10AW77AAh7ThCE1VXEv+JeWj8mSpGo+0bwgsV+b23ljBFwEM9OmsOv3kM27iUPPm84g==
   dependencies:
-    nan "2.12.1"
+    nan "^2.14.0"
 
 node-releases@^1.1.49:
   version "1.1.50"
