@@ -130,7 +130,7 @@ export default async function watch(cliConfig: CliConfig) {
 
   await new Promise((resolve) => {
     process.stdin.on("data", (data) => {
-      const stringData = data.toString("utf-8");
+      const stringData = data.toString("utf-8").replace(/\r/g, "");
 
       if (awaitingPattern) {
         awaitingPattern = false;
