@@ -14,7 +14,7 @@
     "make-module-env": "^1.0.1",
     "node-nw": "^0.5.2",
     "nwjs-types": "^1.0.0",
-    "yargs-parser": "^17.0.0"
+    "yargs-parser": "^18.1.2"
   },
   "peerDependencies": {
     "@test-it/core": "^0.6.3"
