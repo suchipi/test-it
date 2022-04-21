@@ -16,11 +16,11 @@ test("snapshot-testing", async () => {
 
     [38;2;241;76;76m[1m● snapshots-in-ci/index.test-it.js snapshots-in-ci first test[22m[39m
 
-      Error: Tried to write to a new snapshot in CI: '/Users/lily/Code/test-it/packages/tests/snapshots-in-ci/index.test-it.js' 'snapshots-in-ci first test 1'. Did you forget to commit your snapshots?
-      Error: Tried to write to a new snapshot in CI: '/Users/lily/Code/test-it/packages/tests/snapshots-in-ci/index.test-it.js' 'snapshots-in-ci first test 1'. Did you forget to commit your snapshots?
-          at Object.toMatchSnapshot ([34m/Users/lily/Code/test-it/packages/core/dist/make-expect.js:38:23[39m)
-          at __EXTERNAL_MATCHER_TRAP__ ([34m/Users/lily/Code/test-it/node_modules/expect/build/index.js:380:30[39m)
-          at Object.throwingMatcher [as toMatchSnapshot] ([34m/Users/lily/Code/test-it/node_modules/expect/build/index.js:381:15[39m)
+      Error: Tried to write to a new snapshot in CI: '<rootDir>/packages/tests/snapshots-in-ci/index.test-it.js' 'snapshots-in-ci first test 1'. Did you forget to commit your snapshots?
+      Error: Tried to write to a new snapshot in CI: '<rootDir>/packages/tests/snapshots-in-ci/index.test-it.js' 'snapshots-in-ci first test 1'. Did you forget to commit your snapshots?
+          at Object.toMatchSnapshot ([34m<rootDir>/packages/core/dist/make-expect.js:40:23[39m)
+          at __EXTERNAL_MATCHER_TRAP__ ([34m<rootDir>/node_modules/expect/build/index.js:380:30[39m)
+          at Object.throwingMatcher [as toMatchSnapshot] ([34m<rootDir>/node_modules/expect/build/index.js:381:15[39m)
           at <Jasmine>
           at processImmediate ([34minternal/timers.js:456:21[39m)
 
