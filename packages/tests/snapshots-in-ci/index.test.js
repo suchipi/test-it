@@ -22,7 +22,7 @@ test("snapshot-testing", async () => {
           at __EXTERNAL_MATCHER_TRAP__ ([34m<rootDir>/node_modules/expect/build/index.js:380:30[39m)
           at Object.throwingMatcher [as toMatchSnapshot] ([34m<rootDir>/node_modules/expect/build/index.js:381:15[39m)
           at <Jasmine>
-          at processImmediate ([34minternal/timers.js:456:21[39m)
+          at processImmediate ([34mnode:internal/timers:473:21[39m)
 
     [1m[1m[38;2;241;76;76m1 failed[39m[22m[1m, 1 total[22m
     "

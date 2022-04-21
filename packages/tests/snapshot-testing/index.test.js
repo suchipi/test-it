@@ -32,7 +32,7 @@ test("snapshot-testing", async () => {
       [2m  }[22m
       error properties: Object({ matcherResult: Object({ message: Function, pass: false }) })
           at <Jasmine>
-          at processImmediate ([34minternal/timers.js:456:21[39m)
+          at processImmediate ([34mnode:internal/timers:473:21[39m)
 
     [1m[1m[38;2;241;76;76m1 failed[39m[22m[1m, [1m[38;2;35;209;139m1 passed[39m[22m[1m, 2 total[22m
     "

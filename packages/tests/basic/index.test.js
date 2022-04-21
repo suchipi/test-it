@@ -18,7 +18,7 @@ test("basic", async () => {
       Received: [31m4[39m
       error properties: Object({ matcherResult: Object({ actual: 4, expected: 5, message: Function, name: 'toBe', pass: false }) })
           at <Jasmine>
-          at processImmediate ([34minternal/timers.js:456:21[39m)
+          at processImmediate ([34mnode:internal/timers:473:21[39m)
 
     [1m[1m[38;2;241;76;76m1 failed[39m[22m[1m, [1m[38;2;245;245;67m1 skipped[39m[22m[1m, [1m[38;2;35;209;139m1 passed[39m[22m[1m, 3 total[22m
     "

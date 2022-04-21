@@ -1303,20 +1303,20 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@nwjs-binaries/linux-x64@0.44.2-sdk":
-  version "0.44.2-sdk"
-  resolved "https://registry.yarnpkg.com/@nwjs-binaries/linux-x64/-/linux-x64-0.44.2-sdk.tgz#7219df8385fb4a0a98c414c590cbfa38d27fb413"
-  integrity sha512-k9pbphs10X1jwhPeW5M/yoVpG9/p75b3uClgok/rPaHdIeuJWNS4/BNRx5Y+pbsIoSh7xsRFuZYTNUuvBozklw==
+"@nwjs-binaries/linux-x64@0.61.0-sdk":
+  version "0.61.0-sdk"
+  resolved "https://registry.yarnpkg.com/@nwjs-binaries/linux-x64/-/linux-x64-0.61.0-sdk.tgz#f3b634a4bd6ae4add56d26d60045ff9d9110ae02"
+  integrity sha512-j+aWE8DJabsbGGnKQUr9nPNvkAMbF3qy4dN3BO7Llutq+uEOnN2JQAX/KuwnTySbOFzEtdRbqAH23Et2LuqX+w==
 
-"@nwjs-binaries/osx-x64@0.44.2-sdk":
-  version "0.44.2-sdk"
-  resolved "https://registry.yarnpkg.com/@nwjs-binaries/osx-x64/-/osx-x64-0.44.2-sdk.tgz#e135bc0195fe05e0fecf9e551abf80856e52fee7"
-  integrity sha512-/2ATZeG55ZrAs8aynSoVmKyMHCzwom/uNiuSmf9mGR64kpasV7muVagRVHFUzPRbRrzbxKOll1SXs/6qNavAow==
+"@nwjs-binaries/osx-x64@0.61.0-sdk":
+  version "0.61.0-sdk"
+  resolved "https://registry.yarnpkg.com/@nwjs-binaries/osx-x64/-/osx-x64-0.61.0-sdk.tgz#d59895b101de5e5e0b346d0c7d602a0cffcfb4a5"
+  integrity sha512-VEtM3/D89jrofUoz02OG7KZq3enB36iM5ApRjgfVc+sV/CZ2lhSdcR0GVDQ91qHkg6k+BT3VOkF8W203hGWDQQ==
 
-"@nwjs-binaries/win-x64@0.44.2-sdk":
-  version "0.44.2-sdk"
-  resolved "https://registry.yarnpkg.com/@nwjs-binaries/win-x64/-/win-x64-0.44.2-sdk.tgz#7eb4f63165905b7d5ebfb3202a1991c3cd502ef3"
-  integrity sha512-jZ+JfTgRsEOU6evZOM+EbfmsmJuWDfpljlj0+UHOzAHTtTN3qAnGvh0I87TrA6Gk66dSc8odwqNwQncpLvN8cw==
+"@nwjs-binaries/win-x64@0.61.0-sdk":
+  version "0.61.0-sdk"
+  resolved "https://registry.yarnpkg.com/@nwjs-binaries/win-x64/-/win-x64-0.61.0-sdk.tgz#ad25fde75de6307a6bca27fbb76a45c8411cc79c"
+  integrity sha512-0yrjVUHpHse9PvQ1/YQ3j4eWHvuiAtAj3CVa3b7F551u5kLDIwrYKNmya0Lvmun1C35QmXb9ejGkcggy6Di+sw==
 
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
@@ -3809,10 +3809,10 @@ node-notifier@^6.0.0:
     shellwords "^0.1.1"
     which "^1.3.1"
 
-node-nw@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/node-nw/-/node-nw-0.5.2.tgz#15640729f941fc08a75e1d5d5cf637dd001a32e5"
-  integrity sha512-qS4TCTeAjPwOj9d70iujBiGhRO80z33KhV6c55GjKpUK4kbskMOfipHzmaZhJXqQMPwh6WS/cCad0OrR5nfd1Q==
+node-nw@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/node-nw/-/node-nw-0.6.0.tgz#09a4e7512f01409c0f19514f823f2907afc08d72"
+  integrity sha512-2XDrmkI6ohAr5fHNMMyf7WjMglU/AK6Y2NHkHetQjfjjH49pQ+kyod6tt3/zRubhrlzWzCq61SKcKfNPTzSY9g==
   dependencies:
     debug "^4.1.1"
     mkdirp "^1.0.3"
@@ -3822,9 +3822,9 @@ node-nw@^0.5.2:
     supports-color "^3.2.3"
     yargs-parser "^4.2.1"
   optionalDependencies:
-    "@nwjs-binaries/linux-x64" "0.44.2-sdk"
-    "@nwjs-binaries/osx-x64" "0.44.2-sdk"
-    "@nwjs-binaries/win-x64" "0.44.2-sdk"
+    "@nwjs-binaries/linux-x64" "0.61.0-sdk"
+    "@nwjs-binaries/osx-x64" "0.61.0-sdk"
+    "@nwjs-binaries/win-x64" "0.61.0-sdk"
 
 node-pty@^0.9.0:
   version "0.9.0"
