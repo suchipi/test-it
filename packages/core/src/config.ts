@@ -35,7 +35,7 @@ export function normalizeConfig(config: PartialConfig): NormalizedConfig {
       config.reporters && config.reporters.length > 0
         ? config.reporters
         : [new DefaultReporter()],
-    loader: config.loader ?? defaultLoader,
+    loader: config.loader ?? defaultLoader.load,
     resolver: config.resolver,
     seed: config.seed,
     updateSnapshots: config.updateSnapshots,
