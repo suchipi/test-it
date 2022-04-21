@@ -1,9 +1,7 @@
-const fs = require("fs");
-const babel = require("@babel/core");
 const defaultLoader = require("@test-it/default-loader");
 
-module.exports = (filepath) => {
+exports.load = (filepath) => {
   console.log("LOADER:", filepath);
 
-  return defaultLoader(filepath);
+  return defaultLoader.load(filepath);
 };

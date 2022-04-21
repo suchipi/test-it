@@ -53,10 +53,13 @@ test("help", async () => {
 
         The default loader module supports ES2020, React, TypeScript, and Flow.
 
-        A loader module should export a function that receives a
-        string (the file to load), and returns a string (the code to
-         execute in the browser). Loader modules must be synchronous,
-         because they're called when 'require' is called.
+        A loader module should export a function named \\"load\\" that receives a
+        string (the file to load), and returns a string (the code to execute in
+        the browser). Loader modules must be synchronous, because they're
+        called when 'require' is called.
+
+        Loader modules are passed directly to \`kame\`. Run \`npx kame --help\` and
+        read the section on loaders for more info.
 
         Example: test-it --loader some-loader-from-npm
         Example: test-it --loader ./my-loader.js
@@ -70,11 +73,8 @@ test("help", async () => {
         and allows you to omit the file extension for the following filetypes:
         '.js', '.json', '.mjs', '.jsx', '.ts', and '.tsx'.
 
-        A resolver module should be defined according to the
-        eslint-plugin-import resolver spec v2 as defined at the
-        following url:
-
-        https://github.com/benmosher/eslint-plugin-import/blob/b916ed2b574a107e62f819663b8c300f82d82d8d/resolvers/README.md
+        Resolver modules are passed directly to \`kame\`. Run \`npx kame --help\`
+        and read the section on resolvers for more info.
 
         Example: test-it --resolver some-resolver-from-npm
         Example: test-it --resolver ./my-resolver.js
