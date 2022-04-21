@@ -24,9 +24,9 @@ debug(`Using node-nw bin at '${nodeNwBin}'`);
 const mappedArgs = process.argv
   .slice(2)
   // Hack: node-nw swallows the `--help` arg, so we need to change it to something else.
-  .map((arg) => (arg === "--help" ? "--halp" : arg))
+  .map((arg) => (arg === "--help" || arg === "-h" ? "--halp" : arg))
   // Hack: node-nw swallows the `--version` arg, so we need to change it to something else.
-  .map((arg) => (arg === "--version" ? "--varsion" : arg));
+  .map((arg) => (arg === "--version" || arg === "-v" ? "--varsion" : arg));
 
 const child = child_process.spawn(
   "node",
