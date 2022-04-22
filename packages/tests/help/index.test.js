@@ -100,6 +100,14 @@ test("help", async () => {
         Example: test-it --seed 1234
         Example: test-it --seed 7
 
+      --url: Specify the url to run tests in
+
+        All tests run in an invisible browser window. By default, this window is open
+        to \\"about:blank\\". If you'd like your tests to run on a different page, you
+        can specify a different page.
+
+        Example: test-it --url http://localhost:8080/
+
       --help: Show this usage text.
 
         Example: test-it --help
