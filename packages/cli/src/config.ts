@@ -19,6 +19,7 @@ export type CliConfig = {
   updateSnapshots: boolean;
   testSetupFiles?: Array<string>;
   watch?: boolean;
+  url?: string;
 };
 
 export const usage = [
@@ -116,6 +117,14 @@ export const usage = [
   `    Example: test-it --seed 1234`,
   `    Example: test-it --seed 7`,
   ``,
+  `  --url: Specify the url to run tests in`,
+  ``,
+  `    All tests run in an invisible browser window. By default, this window is open`,
+  `    to "about:blank". If you'd like your tests to run on a different page, you`,
+  `    can specify a different page.`,
+  ``,
+  `    Example: test-it --url http://localhost:8080/`,
+  ``,
   `  --help: Show this usage text.`,
   ``,
   `    Example: test-it --help`,
@@ -129,7 +138,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   debug(`Parsing argv with yargs: ${util.inspect(argv)}`);
 
   const opts = yargsParser(argv, {
-    string: ["loader", "resolver", "testSetupFiles"],
+    string: ["loader", "resolver", "testSetupFiles", "url"],
     array: ["reporters"],
     number: ["seed"],
     boolean: [
@@ -171,6 +180,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
       opts.updateSnapshots || opts.u || opts.updateSnapshot
     ),
     watch: opts.watch,
+    url: opts.url,
   };
 }
 
@@ -215,6 +225,7 @@ export async function convertCliConfig(cliConfig: CliConfig): Promise<Config> {
   }
 
   outputConfig.testSetupFiles = cliConfig.testSetupFiles;
+  outputConfig.url = cliConfig.url;
 
   return outputConfig;
 }

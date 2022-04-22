@@ -68,7 +68,7 @@ export async function runTests(
 
       config.reporters.forEach((reporter) => j.addReporter(reporter));
 
-      const testWindow = await openWindow("about:blank", { show: false });
+      const testWindow = await openWindow(config.url, { show: false });
 
       const win: any = testWindow.window;
 
