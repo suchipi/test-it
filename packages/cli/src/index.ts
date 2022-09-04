@@ -45,9 +45,20 @@ async function main() {
       }
     }
   } catch (err) {
-    debug(`Error occurred: ${err.stack}`);
+    let toPrint = err;
+    if (
+      typeof err === "object" &&
+      err != null &&
+      // @ts-ignore .stack property on unknown
+      typeof err.stack === "string"
+    ) {
+      // @ts-ignore .stack property on unknown
+      toPrint = err.stack;
+    }
 
-    console.error(chalk.red(err.stack || err));
+    debug(`Error occurred: ${toPrint}`);
+
+    console.error(chalk.red(toPrint));
     process.exitCode = 1;
   }
 

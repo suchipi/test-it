@@ -6,10 +6,18 @@ import makeDebug from "debug";
 import chokidar from "chokidar";
 import debounce from "lodash.debounce";
 import { format } from "date-fns";
+import picomatch from "picomatch";
 
 const debug = makeDebug("@test-it/cli:watch.ts");
 
 function clearScreen() {
+  if (
+    process.env.NO_CLEAR_SCREEN === "1" ||
+    process.env.NO_CLEAR_SCREEN === "true"
+  ) {
+    return;
+  }
+
   process.stdout.write("\u001b[2J\u001b[0;0H"); // Clear screen
   process.stdout.write("\u001b[3J"); // Clear scrollback
 }
@@ -97,38 +105,49 @@ export default async function watch(cliConfig: CliConfig) {
     "!**/*.png",
   ]);
 
-  watcher.on("add", (_path) => {
-    debug(`watcher: add: ${_path}`);
+  const watchIgnorePatterns = Array.isArray(cliConfig.watchIgnore)
+    ? cliConfig.watchIgnore.map((pattern) => {
+        debug(`received watch ignore pattern: ${pattern}`);
+
+        return {
+          pattern: pattern,
+          isMatch: picomatch(pattern),
+        };
+      })
+    : [];
+
+  if (watchIgnorePatterns.length === 0) {
+    debug("no watch ignore patterns");
+  }
+
+  const watcherCallback = (label: string) => (path: string) => {
+    debug(`watcher: ${label}: ${path}`);
+
+    if (watchIgnorePatterns.length > 0) {
+      debug(`checking if ignored: ${path}`);
+      const anyIgnored = watchIgnorePatterns.some(({ pattern, isMatch }) => {
+        const result = isMatch(path);
+        debug(`checking ${pattern} against ${path}... ${result}`);
+        return result;
+      });
+      if (anyIgnored) return;
+    }
 
     debouncedDoRun();
-  });
-  watcher.on("change", (_path) => {
-    debug(`watcher: change: ${_path}`);
+  };
 
-    debouncedDoRun();
-  });
-  watcher.on("unlink", (_path) => {
-    debug(`watcher: unlink: ${_path}`);
-
-    debouncedDoRun();
-  });
-  watcher.on("addDir", (_path) => {
-    debug(`watcher: addDir: ${_path}`);
-
-    debouncedDoRun();
-  });
-  watcher.on("unlinkDir", (_path) => {
-    debug(`watcher: unlinkDir: ${_path}`);
-
-    debouncedDoRun();
-  });
+  watcher.on("add", watcherCallback("add"));
+  watcher.on("change", watcherCallback("change"));
+  watcher.on("unlink", watcherCallback("unlink"));
+  watcher.on("addDir", watcherCallback("addDir"));
+  watcher.on("unlinkDir", watcherCallback("unlinkDir"));
   watcher.on("error", (error) => {
     debug(`watcher: error: ${util.inspect(error)}`);
   });
 
   let awaitingPattern = false;
 
-  await new Promise((resolve) => {
+  await new Promise<void>((resolve) => {
     process.stdin.on("data", (data) => {
       const stringData = data.toString("utf-8").replace(/\r/g, "");
 
@@ -246,7 +265,7 @@ export default async function watch(cliConfig: CliConfig) {
       }
     });
 
-    process.on("SIGINT", resolve);
-    process.on("SIGTERM", resolve);
+    process.on("SIGINT", () => resolve());
+    process.on("SIGTERM", () => resolve());
   });
 }

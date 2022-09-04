@@ -20,6 +20,7 @@ export type CliConfig = {
   testSetupFiles?: Array<string>;
   watch?: boolean;
   url?: string;
+  watchIgnore?: Array<string>;
 };
 
 export const usage = [
@@ -125,6 +126,14 @@ export const usage = [
   ``,
   `    Example: test-it --url http://localhost:8080/`,
   ``,
+  `  --watch-ignore: Specify files not to watch`,
+  ``,
+  `    A comma-separated list of globs matching files that, if changed, watch mode`,
+  `    should not re-run tests for. You may wish to use this to ignore changes to`,
+  `    compiled files or test fixtures.`,
+  ``,
+  `    Example: test-it --watch-ignore **/*.js,**/*.css`,
+  ``,
   `  --help: Show this usage text.`,
   ``,
   `    Example: test-it --help`,
@@ -138,7 +147,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   debug(`Parsing argv with yargs: ${util.inspect(argv)}`);
 
   const opts = yargsParser(argv, {
-    string: ["loader", "resolver", "testSetupFiles", "url"],
+    string: ["loader", "resolver", "testSetupFiles", "url", "watchIgnore"],
     array: ["reporters"],
     number: ["seed"],
     boolean: [
@@ -181,6 +190,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
     ),
     watch: opts.watch,
     url: opts.url,
+    watchIgnore: opts.watchIgnore ? opts.watchIgnore.split(",") : undefined,
   };
 }
 

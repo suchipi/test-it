@@ -14,6 +14,7 @@
     "make-module-env": "^1.0.1",
     "node-nw": "^0.6.0",
     "nwjs-types": "^1.0.0",
+    "picomatch": "^2.3.1",
     "yargs-parser": "^17.0.0"
   },
   "peerDependencies": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/lodash.debounce": "^4.0.6",
+    "@types/picomatch": "^2.3.0",
     "typescript": "^3.8.2"
   },
   "scripts": {

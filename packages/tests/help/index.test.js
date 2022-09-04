@@ -108,6 +108,14 @@ test("help", async () => {
 
         Example: test-it --url http://localhost:8080/
 
+      --watch-ignore: Specify files not to watch
+
+        A comma-separated list of globs matching files that, if changed, watch mode
+        should not re-run tests for. You may wish to use this to ignore changes to
+        compiled files or test fixtures.
+
+        Example: test-it --watch-ignore **/*.js,**/*.css
+
       --help: Show this usage text.
 
         Example: test-it --help
