@@ -1,3 +1,4 @@
+import path from "path";
 import util from "util";
 import chalk from "chalk";
 import { runTests } from "@test-it/core";
@@ -109,9 +110,17 @@ export default async function watch(cliConfig: CliConfig) {
     ? cliConfig.watchIgnore.map((pattern) => {
         debug(`received watch ignore pattern: ${pattern}`);
 
+        // gross, but we have to put the absolute path in the pattern
+        // itself for things to behave correctly...
+        let normalizedPattern = pattern;
+        if (!pattern.startsWith("**/") && !path.isAbsolute(pattern)) {
+          normalizedPattern = path.resolve(process.cwd(), pattern);
+        }
+
         return {
-          pattern: pattern,
-          isMatch: picomatch(pattern),
+          pattern,
+          normalizedPattern,
+          isMatch: picomatch(normalizedPattern),
         };
       })
     : [];
@@ -120,19 +129,30 @@ export default async function watch(cliConfig: CliConfig) {
     debug("no watch ignore patterns");
   }
 
-  const watcherCallback = (label: string) => (path: string) => {
-    debug(`watcher: ${label}: ${path}`);
+  const watcherCallback = (label: string) => (updatedPath: string) => {
+    debug(`watcher: ${label}: ${updatedPath}`);
+
+    // ugh, chokidar gives relative paths sometimes
+    // and absolute paths other times
+    if (!path.isAbsolute(updatedPath)) {
+      updatedPath = path.resolve(process.cwd(), updatedPath);
+    }
 
     if (watchIgnorePatterns.length > 0) {
-      debug(`checking if ignored: ${path}`);
-      const anyIgnored = watchIgnorePatterns.some(({ pattern, isMatch }) => {
-        const result = isMatch(path);
-        debug(`checking ${pattern} against ${path}... ${result}`);
-        return result;
-      });
+      debug(`checking if ignored: ${updatedPath}`);
+      const anyIgnored = watchIgnorePatterns.some(
+        ({ pattern, normalizedPattern, isMatch }) => {
+          const result = isMatch(updatedPath);
+          debug(
+            `checking ${pattern} (which was normalized to ${normalizedPattern}) against ${updatedPath}... ${result}`
+          );
+          return result;
+        }
+      );
       if (anyIgnored) return;
     }
 
+    debug(`enqueueing run due to file change: ${label}: ${updatedPath}`);
     debouncedDoRun();
   };
 
