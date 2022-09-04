@@ -1,6 +1,6 @@
 {
   "name": "@test-it/default-reporter",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "src/index.ts",

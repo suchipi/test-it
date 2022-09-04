@@ -5,8 +5,8 @@ test("version", async () => {
   const result = await runTestIt(["--version"]);
 
   expect(result.stdout).toMatchInlineSnapshot(`
-    "@test-it/cli: 0.7.3
-    @test-it/core: 0.7.3
+    "@test-it/cli: 0.7.4
+    @test-it/core: 0.7.4
     "
   `);
   expect(result.stderr).toBe("");
