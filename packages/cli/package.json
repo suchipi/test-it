@@ -15,7 +15,7 @@
     "node-nw": "^0.6.0",
     "nwjs-types": "^1.0.0",
     "picomatch": "^2.3.1",
-    "yargs-parser": "^17.0.0"
+    "yargs-parser": "^18.1.1"
   },
   "peerDependencies": {
     "@test-it/core": "^0.7.4"
