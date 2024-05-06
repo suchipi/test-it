@@ -4,9 +4,10 @@
 
   "compilerOptions": {
     "lib": ["es2019", "dom"],
-    "target": "es5",
+    "target": "es2019",
     "module": "commonjs",
     "outDir": "./dist",
+    "skipLibCheck": true,
 
     "strict": true,
     "noImplicitAny": true,

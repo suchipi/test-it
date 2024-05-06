@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import util from "util";
-import mkdirp from "mkdirp";
 import chalk from "chalk";
 import isBuffer from "is-buffer";
 import { diffLinesUnified } from "jest-diff";
@@ -33,12 +32,12 @@ const makeExpect = (
   j: typeof import("@suchipi/jasmine-mini").default,
   snapshotState: SnapshotStateType,
   config: NormalizedConfig
-): typeof import("expect") => {
+): typeof import("expect").expect => {
   const testNameReporter = new TestNameReporter();
   j.addReporter(testNameReporter);
 
   delete require.cache[require.resolve("expect")];
-  const expect: typeof import("expect") = require("expect");
+  const expect: typeof import("expect").expect = require("expect").expect;
 
   const matchers = {
     toMatchSnapshot(received: any) {
@@ -123,7 +122,7 @@ const makeExpect = (
         testName + ".diff.png"
       );
 
-      mkdirp.sync(testFileSnapshotFolder);
+      fs.mkdirSync(testFileSnapshotFolder, { recursive: true });
 
       if (fs.existsSync(snapshotActualFile)) {
         fs.unlinkSync(snapshotActualFile);

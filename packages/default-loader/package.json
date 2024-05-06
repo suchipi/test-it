@@ -4,6 +4,6 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "kame": "^0.9.1"
+    "kame": "^0.14.0"
   }
 }

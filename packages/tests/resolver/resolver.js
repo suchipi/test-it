@@ -1,8 +1,8 @@
 const path = require("path");
-const builtinModules = require("builtin-modules");
 const resolve = require("resolve");
+const { Module } = require("module");
 
-const allBuiltins = new Set(builtinModules);
+const allBuiltins = new Set(Module.builtinModules);
 
 exports.interfaceVersion = 2;
 

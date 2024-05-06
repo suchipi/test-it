@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots-in-ci first test 1`] = `
+Object {
+  "number": "one",
+}
+`;

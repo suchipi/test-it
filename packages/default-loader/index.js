@@ -1,5 +1,5 @@
 const kame = require("kame");
 
 exports.load = (filename) => {
-  return kame.defaultLoader.load(filename, { targets: { node: "current" } });
+  return kame.defaultLoader.load(filename, { target: "es2019" });
 };

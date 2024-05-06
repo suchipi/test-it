@@ -5,12 +5,12 @@
   "main": "dist/index.js",
   "types": "src/index.ts",
   "dependencies": {
-    "chalk": "^3.0.0",
-    "debug": "^4.1.1",
-    "util": "^0.12.1"
+    "chalk": "^4.1.2",
+    "debug": "^4.3.4",
+    "util": "^0.12.5"
   },
   "devDependencies": {
-    "typescript": "^3.8.2"
+    "typescript": "^5.4.5"
   },
   "scripts": {
     "build": "tsc"

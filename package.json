@@ -18,6 +18,6 @@
     "check": "yarn build && yarn test"
   },
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^8.2.2"
   }
 }

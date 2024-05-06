@@ -239,7 +239,7 @@ export async function runTests(
 
                 await result;
 
-                await new Promise((resolve) => {
+                await new Promise<void>((resolve) => {
                   testWindow.on("close", resolve);
                 });
               },
