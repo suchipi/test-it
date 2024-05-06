@@ -8,14 +8,14 @@
     "packages/default-loader"
   ],
   "scripts": {
-    "build": "cd packages/core && yarn build && cd ../cli && yarn build && cd ../default-reporter && yarn build",
-    "build:watch": "concurrently 'cd packages/core && yarn build --watch' 'cd packages/cli && yarn build --watch' 'cd packages/default-reporter && yarn build --watch'",
+    "build": "cd packages/core && npm run build && cd ../cli && npm run build && cd ../default-reporter && npm run build",
+    "build:watch": "concurrently 'cd packages/core && npm run build --watch' 'cd packages/cli && npm run build --watch' 'cd packages/default-reporter && npm run build --watch'",
     "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
-    "cli": "node packages/cli/dist/cli.js",
-    "cli:debug": "env DEBUG='@test-it/*' yarn cli",
-    "test": "cd packages/tests && yarn test",
-    "test:manual": "yarn cli 'packages/tests/**/*.test-it.js'",
-    "check": "yarn build && yarn test"
+    "cli": "node packages/cli/dist/cli.js --",
+    "cli:debug": "env DEBUG='@test-it/*' npm run cli --",
+    "test": "cd packages/tests && npm run test",
+    "test:manual": "npm run cli 'packages/tests/**/*.test-it.js'",
+    "check": "npm run build && npm run test"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
