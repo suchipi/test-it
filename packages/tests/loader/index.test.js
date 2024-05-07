@@ -15,11 +15,10 @@ test("loader", async () => {
 
   expect(result.stdout).toMatchInlineSnapshot(`
     "LOADER: <rootDir>/packages/tests/loader/index.test-it.js
+    LOADER: <rootDir>/node_modules/@swc/helpers/cjs/_interop_require_default.cjs
+    LOADER: <rootDir>/node_modules/@swc/helpers/cjs/_interop_require_wildcard.cjs
     LOADER: <rootDir>/node_modules/react/index.js
     LOADER: <rootDir>/node_modules/react/cjs/react.development.js
-    LOADER: <rootDir>/node_modules/object-assign/index.js
-    LOADER: <rootDir>/node_modules/prop-types/checkPropTypes.js
-    LOADER: <rootDir>/node_modules/prop-types/lib/ReactPropTypesSecret.js
     LOADER: <rootDir>/packages/tests/loader/App.jsx
     [32m✓ loader/index.test-it.js basic JSX works[39m
 

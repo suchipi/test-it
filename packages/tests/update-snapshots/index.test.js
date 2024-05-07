@@ -16,7 +16,7 @@ test("snapshot-testing", async () => {
 
     exports[\`snapshot-testing first test 1\`] = \`
     Object {
-      \\"haha\\": \\"woop woop\\",
+      "haha": "woop woop",
     }
     \`;
 
@@ -41,17 +41,17 @@ test("snapshot-testing", async () => {
   expect(
     fs.readFileSync(path.join(__dirname, "index.test-it.js.snap"), "utf-8")
   ).toMatchInlineSnapshot(`
-"// Jest Snapshot v1, https://goo.gl/fbAQLP
+    "// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[\`snapshot-testing first test 1\`] = \`
-Object {
-  \\"haha\\": \\"yolo\\",
-}
-\`;
+    exports[\`snapshot-testing first test 1\`] = \`
+    Object {
+      "haha": "yolo",
+    }
+    \`;
 
-exports[\`snapshot-testing second test 1\`] = \`[Error: hi]\`;
-"
-`);
+    exports[\`snapshot-testing second test 1\`] = \`[Error: hi]\`;
+    "
+  `);
 
   shelljs.rm(path.join(__dirname, "index.test-it.js.snap"));
 });

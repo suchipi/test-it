@@ -27,13 +27,13 @@ test("snapshot-testing", async () => {
 
     exports[\`here we go first test 1\`] = \`
     Object {
-      \\"number\\": \\"one\\",
+      "number": "one",
     }
     \`;
 
     exports[\`here we go first test 2\`] = \`
     Object {
-      \\"number\\": \\"two\\",
+      "number": "two",
     }
     \`;
     "
@@ -46,19 +46,19 @@ test("snapshot-testing", async () => {
   shelljs.rm(path.join(__dirname, "second.test-it.js.snap"));
 
   expect(secondSnapshotContent).toMatchInlineSnapshot(`
-"// Jest Snapshot v1, https://goo.gl/fbAQLP
+    "// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[\`anotha one second test 1\`] = \`
-Object {
-  \\"number\\": \\"three\\",
-}
-\`;
+    exports[\`anotha one second test 1\`] = \`
+    Object {
+      "number": "three",
+    }
+    \`;
 
-exports[\`anotha one second test 2\`] = \`
-Object {
-  \\"number\\": \\"four\\",
-}
-\`;
-"
-`);
+    exports[\`anotha one second test 2\`] = \`
+    Object {
+      "number": "four",
+    }
+    \`;
+    "
+  `);
 });

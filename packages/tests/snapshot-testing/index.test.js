@@ -27,12 +27,20 @@ test("snapshot-testing", async () => {
       [31m+ Received[39m
       
       [2m  Object {[22m
-      [32m-   \\"haha\\": \\"woop woop\\",[39m
-      [31m+   \\"haha\\": \\"yolo\\",[39m
+      [32m-   "haha": "woop woop",[39m
+      [31m+   "haha": "yolo",[39m
       [2m  }[22m
-      error properties: Object({ matcherResult: Object({ message: Function, pass: false }) })
+      error properties: Object({ matcherResult: Object({ message: '[1m[31mExpected value to match snapshot: 'snapshot-testing first test 1'[39m[22m
+      
+      [32m- Snapshot[39m
+      [31m+ Received[39m
+      
+      [2m  Object {[22m
+      [32m-   "haha": "woop woop",[39m
+      [31m+   "haha": "yolo",[39m
+      [2m  }[22m', pass: false }) })
           at <Jasmine>
-          at processImmediate ([34mnode:internal/timers:473:21[39m)
+          at process.processImmediate ([34mnode:internal/timers:478:21[39m)
 
     [1m[1m[38;2;241;76;76m1 failed[39m[22m[1m, [1m[38;2;35;209;139m1 passed[39m[22m[1m, 2 total[22m
     "

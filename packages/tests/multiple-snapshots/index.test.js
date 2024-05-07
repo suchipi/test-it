@@ -22,19 +22,19 @@ test("snapshot-testing", async () => {
   shelljs.rm(path.join(__dirname, "index.test-it.js.snap"));
 
   expect(snapshotContent).toMatchInlineSnapshot(`
-"// Jest Snapshot v1, https://goo.gl/fbAQLP
+    "// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[\`snapshot-testing first test 1\`] = \`
-Object {
-  \\"number\\": \\"one\\",
-}
-\`;
+    exports[\`snapshot-testing first test 1\`] = \`
+    Object {
+      "number": "one",
+    }
+    \`;
 
-exports[\`snapshot-testing first test 2\`] = \`
-Object {
-  \\"number\\": \\"two\\",
-}
-\`;
-"
-`);
+    exports[\`snapshot-testing first test 2\`] = \`
+    Object {
+      "number": "two",
+    }
+    \`;
+    "
+  `);
 });

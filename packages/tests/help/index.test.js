@@ -53,7 +53,7 @@ test("help", async () => {
 
         The default loader module supports ES2020, React, TypeScript, and Flow.
 
-        A loader module should export a function named \\"load\\" that receives a
+        A loader module should export a function named "load" that receives a
         string (the file to load), and returns a string (the code to execute in
         the browser). Loader modules must be synchronous, because they're
         called when 'require' is called.
@@ -103,7 +103,7 @@ test("help", async () => {
       --url: Specify the url to run tests in
 
         All tests run in an invisible browser window. By default, this window is open
-        to \\"about:blank\\". If you'd like your tests to run on a different page, you
+        to "about:blank". If you'd like your tests to run on a different page, you
         can specify a different page.
 
         Example: test-it --url http://localhost:8080/
