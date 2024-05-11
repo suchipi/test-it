@@ -165,7 +165,7 @@ export function parseArgvIntoCliConfig(argv: Array<string>): CliConfig {
   return {
     testFiles:
       opts._ && opts._.length > 0
-        ? opts._
+        ? opts._.map(String)
         : ["**/?(*.)+(spec|test).[jt]s?(x)", "!**/node_modules/**"],
     reporters: (Array.isArray(opts.reporters)
       ? opts.reporters
