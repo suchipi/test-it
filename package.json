@@ -13,7 +13,7 @@
     "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
     "cli": "node packages/cli/dist/cli.js --",
     "cli:debug": "env DEBUG='@test-it/*' npm run cli --",
-    "test": "cd packages/tests && npm run test",
+    "test": "cd packages/tests && npm run test --",
     "test:manual": "npm run cli 'packages/tests/**/*.test-it.js'",
     "check": "npm run build && npm run test"
   },
