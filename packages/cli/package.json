@@ -12,7 +12,7 @@
     "globby": "^11.1.0",
     "lodash.debounce": "^4.0.8",
     "make-module-env": "^1.1.2",
-    "node-nw": "^0.7.0",
+    "node-nw": "^0.7.1",
     "nwjs-types": "^1.0.0",
     "picomatch": "^4.0.2",
     "yargs-parser": "^21.1.1"
