@@ -1,13 +1,13 @@
 {
   "name": "@test-it/core",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "src/index.ts",
   "dependencies": {
     "@suchipi/jasmine-mini": "^3.2.1",
-    "@test-it/default-loader": "^0.7.4",
-    "@test-it/default-reporter": "^0.7.4",
+    "@test-it/default-loader": "^0.8.0",
+    "@test-it/default-reporter": "^0.8.0",
     "bluebird": "^3.7.2",
     "chalk": "^4.1.2",
     "debug": "^4.3.4",
