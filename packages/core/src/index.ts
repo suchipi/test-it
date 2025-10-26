@@ -5,7 +5,6 @@ import Jasmine from "@suchipi/jasmine-mini";
 import { SnapshotState } from "jest-snapshot";
 import { PartialConfig, normalizeConfig } from "./config";
 import makeDebug from "debug";
-import regeneratorRuntime from "regenerator-runtime";
 import { configure as configureKame } from "kame";
 import makeExpect from "./make-expect";
 
@@ -75,7 +74,6 @@ export async function runTests(
       win.nw = nw;
       win.global = win;
       win.process = process;
-      win.regeneratorRuntime = regeneratorRuntime;
       win.Buffer = Buffer;
 
       const originalConsole = win.console;
