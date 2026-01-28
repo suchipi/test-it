@@ -15,7 +15,7 @@
     "is-buffer": "^2.0.5",
     "jest-diff": "^29.7.0",
     "jest-snapshot": "^25.1.0",
-    "kame": "^0.14.0",
+    "kame": "^1.17.0",
     "nwjs-types": "^1.0.0",
     "pixelmatch": "^5.3.0",
     "pngjs": "^7.0.0"
